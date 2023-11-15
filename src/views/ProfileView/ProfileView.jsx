@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import DataProfile from '../../components/Profile/DataProfile';
 import PhotoAndInfo from '../../components/Profile/PhotoAndInfo';
-import './profile.css'
+//import './profile.css'
 
 const ProfileView = () => {
     const { isAuthenticated, userProfile } = useSelector(state => state.auth);
