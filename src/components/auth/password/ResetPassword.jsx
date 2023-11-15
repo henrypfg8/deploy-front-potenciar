@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Styles from './reset.module.css'
+import { Styles } from './reset.module.css'
 import { useForm } from 'react-hook-form';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';

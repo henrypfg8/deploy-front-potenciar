@@ -1,4 +1,4 @@
-import Styles from "./searchBar.module.css";
+import { Styles } from "./searchBar.module.css";
 //
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";

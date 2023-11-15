@@ -1,4 +1,4 @@
-import Styles from "./forum_DateFilters.module.css";
+import { Styles } from "./forum_DateFilters.module.css";
 //
 import Forum_DateInput from "./Forum_DateInput/Forum_DateInput";
 //

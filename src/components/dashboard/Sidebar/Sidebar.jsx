@@ -1,26 +1,26 @@
 ///import { useState } from 'react'
 import { Avatar } from 'antd';
 import { NavLink, } from 'react-router-dom'
-import Styles from './sidebar.module.css';
+import { Styles } from './sidebar.module.css';
 import { getProfile } from '../../../Redux/auth/AuthActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImageCloudinary } from '../../Form/cloudinary';
 import { updateProfile } from '../../../Redux/auth/AuthActions';
-import { useEffect,  } from 'react';
-import {jwtDecode} from 'jwt-decode'
+import { useEffect, } from 'react';
+import { jwtDecode } from 'jwt-decode'
 import { UserOutlined, } from '@ant-design/icons';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
 
 
-  const {userProfile} = useSelector(state => state.auth)
-  
+  const { userProfile } = useSelector(state => state.auth)
+
   const token = localStorage.getItem('token');
   const decoded = jwtDecode(token);
 
   useEffect(() => {
-      dispatch(getProfile(decoded.id, token))
+    dispatch(getProfile(decoded.id, token))
   }, []);
 
 
@@ -37,16 +37,16 @@ const Sidebar = () => {
     data.append('upload_preset', 'photo_users');
     const imgUrl = await uploadImageCloudinary(data);
     userProfile.profile_picture = imgUrl;
-   
-    dispatch(updateProfile(decoded.id, { ...userProfile, profile_picture: imgUrl }))
-        .then(() => {
-          
-        })
-        .catch(error => {
-            console.log(error.response.data)
-        })
 
-};
+    dispatch(updateProfile(decoded.id, { ...userProfile, profile_picture: imgUrl }))
+      .then(() => {
+
+      })
+      .catch(error => {
+        console.log(error.response.data)
+      })
+
+  };
 
 
   return (
@@ -59,9 +59,9 @@ const Sidebar = () => {
           <div className={Styles.sidebar__header}>
             <h1 className={Styles.sidebar__title}>Panel de administración</h1>
             <div className={Styles.sidebar__photoFlex}>
-             {userProfile?.profile_picture && userProfile?.admin ?<Avatar src={userProfile?.admin && userProfile?.profile_picture} size={80}/>:  <Avatar icon={<UserOutlined/>} size={80} /> }
-              <label  className={Styles.button__photo} htmlFor="image">{userProfile?.profile_picture && userProfile?.admin? 'Cambiar de foto' : 'Agregar foto'}</label>
-              <input type="file" id='image' style={{display : 'none'}} onChange={handleUpdatePhotoProfile}/>
+              {userProfile?.profile_picture && userProfile?.admin ? <Avatar src={userProfile?.admin && userProfile?.profile_picture} size={80} /> : <Avatar icon={<UserOutlined />} size={80} />}
+              <label className={Styles.button__photo} htmlFor="image">{userProfile?.profile_picture && userProfile?.admin ? 'Cambiar de foto' : 'Agregar foto'}</label>
+              <input type="file" id='image' style={{ display: 'none' }} onChange={handleUpdatePhotoProfile} />
             </div>
 
           </div>

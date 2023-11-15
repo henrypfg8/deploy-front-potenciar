@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Styles from "./searchBar_Forum.module.css";
+import { Styles } from "./searchBar_Forum.module.css";
 //
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";

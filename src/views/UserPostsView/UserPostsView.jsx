@@ -5,7 +5,7 @@ import { getProfile } from '../../Redux/auth/AuthActions';
 import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import UserPostCard from '../../components/UserPosts/UserPostCard';
-import Styles from './userPosts.module.css'
+import { Styles } from './userPosts.module.css'
 
 
 const UserPostsView = () => {
@@ -28,19 +28,19 @@ const UserPostsView = () => {
                     console.log(error);
                 })
         }
-    }, [dispatch, isAuthenticated,refreshData])
+    }, [dispatch, isAuthenticated, refreshData])
 
 
     return (
         <div className={Styles.user__pulblications__container}>
-            {!userProfile?.Publications?.length ? <h1 className={Styles.user__title}>Aún no tienes publicaciones</h1> :<h1 className={Styles.user__title}>Mis Publicaciones</h1> }
+            {!userProfile?.Publications?.length ? <h1 className={Styles.user__title}>Aún no tienes publicaciones</h1> : <h1 className={Styles.user__title}>Mis Publicaciones</h1>}
             <div className={Styles.user__pulblications__grid}>
-                { userProfile?.Publications && userProfile.Publications?.map(post => {
+                {userProfile?.Publications && userProfile.Publications?.map(post => {
                     return (
-                        <UserPostCard 
-                        refreshData={refreshData}
-                        setRefreshData={setRefreshData}
-                        key={post.id} post={post} />
+                        <UserPostCard
+                            refreshData={refreshData}
+                            setRefreshData={setRefreshData}
+                            key={post.id} post={post} />
                     )
                 })}
             </div>

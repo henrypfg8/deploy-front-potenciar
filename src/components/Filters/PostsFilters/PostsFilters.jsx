@@ -1,4 +1,4 @@
-import Styles from "./postFilters.module.css";
+import { Styles } from "./postFilters.module.css";
 //
 import Select from "react-select";
 //

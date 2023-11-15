@@ -1,4 +1,4 @@
-import Styles from "./post.module.css";
+import { Styles } from "./post.module.css";
 //
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +12,7 @@ import { like, disLike } from "../../Redux/actions/postsActions";
 
 import { configureHeaders } from "../../Redux/auth/configureHeaders ";
 import axios from "axios";
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 //////////////////////////////
 

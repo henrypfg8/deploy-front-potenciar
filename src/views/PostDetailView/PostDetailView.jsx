@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import Styles from "./postDetail.module.css";
+import { Styles } from "./postDetail.module.css";
 //
 import axios from "axios";
 //

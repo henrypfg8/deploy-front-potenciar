@@ -1,4 +1,4 @@
-import Styles from "./postsOrderings.module.css";
+import { Styles } from "./postsOrderings.module.css";
 //
 import Select from "react-select";
 //
@@ -37,14 +37,14 @@ export default function Orderings() {
   ];
 
   const orderBy = useSelector((state) => state.posts.orderBy);
-  const [orderByLOCAL, setOrderByLOCAL] = useState({...orderBy});
-  
+  const [orderByLOCAL, setOrderByLOCAL] = useState({ ...orderBy });
+
   const selectedOptions = useSelector(state => state.posts.selectedOptions);
-  const [ selectedOptionLOCAL, setSelectedOptionLOCAL ] = useState({
+  const [selectedOptionLOCAL, setSelectedOptionLOCAL] = useState({
     ...selectedOptions.ordering
   });
   console.log(selectedOptionLOCAL)
-  
+
 
   //console.log('el estado global desde el componente', selectedOptions);
 
@@ -57,7 +57,7 @@ export default function Orderings() {
       })
     );
     if (!e.target) {
-      dispatch(setSelectedOptions({...selectedOptions, [name]: { label, name, value }}));
+      dispatch(setSelectedOptions({ ...selectedOptions, [name]: { label, name, value } }));
     }
   };
 
@@ -68,7 +68,7 @@ export default function Orderings() {
   useEffect(() => {
     console.log('useEffect - el global', selectedOptions);
     console.log('useEffect - el local', selectedOptions);
-    setSelectedOptionLOCAL({...selectedOptions.ordering})
+    setSelectedOptionLOCAL({ ...selectedOptions.ordering })
   }, [selectedOptions])
 
   useEffect(() => {

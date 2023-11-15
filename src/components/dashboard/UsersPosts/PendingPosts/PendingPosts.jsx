@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import CardDashboard from '../CardDashboard'
 import SearchDashBoard from '../SearchDashBoard';
-import Styles from '../dashboard.module.css'
+import { Styles } from '../dashboard.module.css'
 import { getPosts } from '../../../../Redux/actions/postsActions';
 import axios from 'axios';
 import { configureHeaders } from '../../../../Redux/auth/configureHeaders ';

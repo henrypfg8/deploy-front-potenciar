@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import CleanDate_Icon from "../../../../../assets/CleanDate_Icon";
 //
 import "react-datepicker/dist/react-datepicker.css";
-import Styles from "./posts_DateInput.module.css";
+import { Styles } from "./posts_DateInput.module.css";
 //
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -74,8 +74,8 @@ const Posts_DateInput = ({
         {fromDate
           ? format(fromDate, "dd-MM-yyyy")
           : untilDate
-          ? format(untilDate, "dd-MM-yyyy")
-          : "Seleccione una fecha"}
+            ? format(untilDate, "dd-MM-yyyy")
+            : "Seleccione una fecha"}
       </button>
 
       <div className={Styles.DateInput__datePicker} ref={datePickerRef}>

@@ -1,6 +1,6 @@
-import {  useEffect, useState, } from 'react'
+import { useEffect, useState, } from 'react'
 
-import Styles from './users.module.css'
+import { Styles } from './users.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUsers } from '../../../Redux/actions/usersActions'
 import UserCard from './userCard'
@@ -35,13 +35,13 @@ const Users = () => {
   return (
     <div className={Styles.users__container}>
       <div className={Styles.divInput}>
-        <input 
+        <input
           className={Styles.inputSearch}
           type="text"
           value={searchTerm}
           onChange={handleSearch}
           placeholder='buscar por nombre o apellido'
-         />
+        />
       </div>
 
       <div className={Styles.users__flex}>

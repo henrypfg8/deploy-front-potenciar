@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import proptypes from 'prop-types'
-import Styles from './users.module.css';
+import { Styles } from './users.module.css';
 import { Modal, Avatar } from 'antd'
 import { useEffect, useState } from 'react';
 import { getUsers, deleteUser } from '../../../Redux/actions/usersActions';
@@ -37,7 +37,7 @@ const UserCard = ({ user }) => {
         setIsModalOpen(false);
     };
 
-    const handleDeleteUserById = (id) => { 
+    const handleDeleteUserById = (id) => {
         // hacer el dispatch de la acción para eliminar el usuario de la base de datos
         setRefreshData(true)
         dispatch(deleteUser(id))
@@ -64,16 +64,16 @@ const UserCard = ({ user }) => {
     //Funcion para bloquear/desbloquear usuario por peticion put
     const handleUpdateUserBlock = id => {
         setRefreshData(true);
-        dispatch(updateProfile(id, {...user, active : user.active ? false : true}))
-            .then (() => {
+        dispatch(updateProfile(id, { ...user, active: user.active ? false : true }))
+            .then(() => {
                 setRefreshData(false);
-              
+
                 setIsModaBlockOpnen(false)
             })
     }
     return (
         <>
-            
+
             <tbody className={Styles.users__body} >
                 <tr className={Styles.users__tr}>
                     <td className={Styles.users__td} data-label='Foto'>{user.profile_picture ? <Avatar src={user.profile_picture} size={45} /> : <Avatar size={45} icon={<UserOutlined />} />}</td>
@@ -101,14 +101,14 @@ const UserCard = ({ user }) => {
                             }}
                             okButtonProps={{ danger: true }}
                         />
-                       
+
                     </td>
                     <td>
                         <button onClick={showModalBlock} className={Styles.user__btn_block}>
-                            <img  className={Styles.users__icon__block} src={user.active ? "/images/desbloqueado.png" : "/images/bloquear.png"} alt="img-block" />
+                            <img className={Styles.users__icon__block} src={user.active ? "/images/desbloqueado.png" : "/images/bloquear.png"} alt="img-block" />
                         </button>
                         <Modal
-                            title={user.active ? `Deseas bloquear a ${user.name}. Ya no podrá ingresar a la pagina` :`Deseas desbloquear a ${user.name}`}
+                            title={user.active ? `Deseas bloquear a ${user.name}. Ya no podrá ingresar a la pagina` : `Deseas desbloquear a ${user.name}`}
                             open={isModalBlockOpen}
                             onCancel={hanldeCloseModalBlock}
                             onOk={() => handleUpdateUserBlock(user.id)}

@@ -1,4 +1,4 @@
-import Styles from "./header.module.css";
+import { Styles } from "./header.module.css";
 import { useLocation, Link } from "react-router-dom";
 
 export default function Header({ isScrolled }) {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getQuestions } from '../../../Redux/actions/questionsActions';
 import UserQuetionCard from './UserQuetionCard';
-import Styles from './userQuestion.module.css'
+import { Styles } from './userQuestion.module.css'
 
 const UserQuestions = () => {
   const dispatch = useDispatch()
@@ -19,11 +19,11 @@ const UserQuestions = () => {
     setIsSearching(value.length > 0);
   };
 
-    // Filtrar el array basado en el término de búsqueda si isSearching es true
-    const filteredResults = isSearching
+  // Filtrar el array basado en el término de búsqueda si isSearching es true
+  const filteredResults = isSearching
     ? questions.filter((item) =>
       // Reemplaza 'item.name' con la propiedad o valor que deseas buscar
-      item.title.toLowerCase().includes(searchTerm.toLowerCase()) 
+      item.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
     : questions;
 
@@ -40,31 +40,31 @@ const UserQuestions = () => {
   return (
     <div className={Styles.question__container}>
       <div className={Styles.divInput}>
-        <input 
+        <input
           className={Styles.inputSearch}
           type="text"
           value={searchTerm}
           onChange={handleSearch}
           placeholder='buscar por nombre de pregunta'
-         />
+        />
       </div>
-    
+
       <div className={Styles.question__grid}>
-      {filteredResults.length > 0 ? (
-            filteredResults.map(question => (
-              <UserQuetionCard 
-                key={question.id} 
-                question={question}
-                setRefreshData={setRefreshData} />
-            ))
-          ) : (
-            isSearching &&
-            <div className={Styles.div_NoResults}>
-              <p className={Styles.title_NoResults}>
-                No hay resultados para esta busqueda
-              </p>
-            </div>
-          )}
+        {filteredResults.length > 0 ? (
+          filteredResults.map(question => (
+            <UserQuetionCard
+              key={question.id}
+              question={question}
+              setRefreshData={setRefreshData} />
+          ))
+        ) : (
+          isSearching &&
+          <div className={Styles.div_NoResults}>
+            <p className={Styles.title_NoResults}>
+              No hay resultados para esta busqueda
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )

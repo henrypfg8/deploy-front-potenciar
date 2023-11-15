@@ -1,4 +1,4 @@
-import Styles from "./posts.module.css";
+import { Styles } from "./posts.module.css";
 //
 import Post from "../Post/Post";
 //
@@ -27,9 +27,8 @@ export default function Posts() {
     const año = fechaParseada.getFullYear();
 
     // Formatea la fecha en el nuevo formato "dd-MM-yyyy"
-    const fechaFormateada = `${dia < 10 ? "0" : ""}${dia}-${
-      mes < 10 ? "0" : ""
-    }${mes}-${año}`;
+    const fechaFormateada = `${dia < 10 ? "0" : ""}${dia}-${mes < 10 ? "0" : ""
+      }${mes}-${año}`;
 
     return fechaFormateada;
   }
@@ -43,8 +42,8 @@ export default function Posts() {
           ? -1
           : 1
         : a.creationDate > b.creationDate
-        ? 1
-        : -1
+          ? 1
+          : -1
     );
   } else if (orderBy.ordering === "title") {
     orderedPosts.sort((a, b) =>

@@ -1,4 +1,4 @@
-import Styles from "./forum_DateInput.module.css";
+import { Styles } from "./forum_DateInput.module.css";
 import "react-datepicker/dist/react-datepicker.css";
 //
 import { format } from "date-fns";
@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { getQuestionsFiltered, setQuestionsFilters } from "../../../../../Redux/actions/questionsActions";
 
 
-export default function ({ fromDate, untilDate, handleFromDate, handleUntilDate}) {
+export default function ({ fromDate, untilDate, handleFromDate, handleUntilDate }) {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -50,8 +50,8 @@ export default function ({ fromDate, untilDate, handleFromDate, handleUntilDate}
         {fromDate
           ? format(fromDate, "dd-MM-yyyy")
           : untilDate
-          ? format(untilDate, "dd-MM-yyyy")
-          : "Seleccione una fecha"}
+            ? format(untilDate, "dd-MM-yyyy")
+            : "Seleccione una fecha"}
       </button>
 
       <div className={Styles.DateInput__Icon}>

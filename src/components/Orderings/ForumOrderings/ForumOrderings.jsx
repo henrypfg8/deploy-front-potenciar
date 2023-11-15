@@ -1,4 +1,4 @@
-import Styles from "./forumOrderings.module.css";
+import { Styles } from "./forumOrderings.module.css";
 //
 import Select from "react-select";
 //
@@ -17,7 +17,7 @@ export default function () {
     direction: "asc",
   });
   const selectedOrderingOption = useSelector(state => state.questions.selectedOrderingOption);
-  const [selectedOptionLOCAL, setSelectedOptionLOCAL] = useState({...selectedOrderingOption});
+  const [selectedOptionLOCAL, setSelectedOptionLOCAL] = useState({ ...selectedOrderingOption });
 
 
   const options = [
@@ -41,7 +41,7 @@ export default function () {
         [name]: value,
       })
     );
-    if (!e.target) dispatch(setSelectedOrderingOption({label, name, value}));
+    if (!e.target) dispatch(setSelectedOrderingOption({ label, name, value }));
   };
 
   useEffect(() => {

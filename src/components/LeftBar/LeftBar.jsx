@@ -1,4 +1,4 @@
-import Styles from "./leftBar.module.css";
+import { Styles } from "./leftBar.module.css";
 //
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -61,8 +61,8 @@ export default function LeftBar({ responsiveMode }) {
                     ? Styles.active
                     : ""
                   : filtersOrderingsSwitchQUESTIONS
-                  ? Styles.active
-                  : ""
+                    ? Styles.active
+                    : ""
               }
               onClick={
                 pathname === "/"
@@ -80,8 +80,8 @@ export default function LeftBar({ responsiveMode }) {
                     ? Styles.active
                     : ""
                   : !filtersOrderingsSwitchQUESTIONS
-                  ? Styles.active
-                  : ""
+                    ? Styles.active
+                    : ""
               }
               onClick={
                 pathname === "/"
