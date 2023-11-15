@@ -31,7 +31,7 @@ export default function Post_Options({ id }) {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:19789/posts/${id}`, config);
+        axios.delete(`https://potenciar-solidario.onrender.com/posts/${id}`, config);
         setTimeout(() => {
           dispatch(getPosts());
         }, 0);

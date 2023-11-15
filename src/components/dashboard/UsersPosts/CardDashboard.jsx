@@ -12,7 +12,7 @@ import axios from 'axios';
 
 
 
-const CardDashboard = ({ post, setRefreshData, refreshData, isCheked, onCheckboxChange}) => {
+const CardDashboard = ({ post, setRefreshData, refreshData, isCheked, onCheckboxChange }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChekedModal, setIsChekedModal] = useState(false);
@@ -37,9 +37,9 @@ const CardDashboard = ({ post, setRefreshData, refreshData, isCheked, onCheckbox
 
     try {
       setRefreshData(true);
-      const { data } = await axios.put(`http://localhost:19789/posts/${id}`, //actualizar el post
+      const { data } = await axios.put(`https://potenciar-solidario.onrender.com/posts/${id}`, //actualizar el post
         { ...post, status: post.status === '1' ? false : true }, config); //cambiar el estado del post
-   
+
       setIsChekedModal(false);
       setRefreshData(false);
       return data;
@@ -83,41 +83,41 @@ const CardDashboard = ({ post, setRefreshData, refreshData, isCheked, onCheckbox
         <p className={Styles.dashboard__p}>{post.description}</p>
       </div>
       <div className={Styles.dashboard__selected}>
-      <input
-        type="checkbox"
-        checked={isCheked}
-        onChange={() => onCheckboxChange(post)}
-      />
+        <input
+          type="checkbox"
+          checked={isCheked}
+          onChange={() => onCheckboxChange(post)}
+        />
         {/* <button className={Styles.dashboard__publish} onClick={handleOpenModalCheked}>{post.status === '1' ? 'sacar' : 'publicar'}</button> */}
         <button
           onClick={showModal}
           className={Styles.dashboard__btn__delete}>
-           
+
           <i className={`fa fa-trash ${Styles.dashboard__trash_icon}`} aria-hidden="true"></i>
         </button>
         <Modal
-            title="Deseas eliminar este post?"
-            open={isModalOpen}
-            onCancel={handleClose}
-            cancelText="Cancelar"
-            okText="Sí,Eliminar"
-            onOk={() => handleDeletePostById(post.id)}
-            cancelButtonProps={{
-              style: { backgroundColor: '#fff', color: '#005692', border: '1px solid #005692' }
-            }}
-            okButtonProps={{ danger: true }}
+          title="Deseas eliminar este post?"
+          open={isModalOpen}
+          onCancel={handleClose}
+          cancelText="Cancelar"
+          okText="Sí,Eliminar"
+          onOk={() => handleDeletePostById(post.id)}
+          cancelButtonProps={{
+            style: { backgroundColor: '#fff', color: '#005692', border: '1px solid #005692' }
+          }}
+          okButtonProps={{ danger: true }}
         />
         <Modal
-            title={post.status === '1' ? 'Deseas dejar de publicar este post?' : 'Deseas publicar este post?'}
-            open={isChekedModal}
-            onCancel={handleCloseModalCheked}
-            cancelText="Cancelar"
-            okText={post.status === '1' ? 'Sí, dejar de publicar' : 'Sí, publicar'}
-            onOk={() => handleUpdatePostPublish(post.id)}
-            cancelButtonProps={{
-              style: { backgroundColor: '#fff', color: '#005692', border: '1px solid #005692' }
-            }}
-            okButtonProps={{ style: { backgroundColor: '#005692', color: '#fff' } }}
+          title={post.status === '1' ? 'Deseas dejar de publicar este post?' : 'Deseas publicar este post?'}
+          open={isChekedModal}
+          onCancel={handleCloseModalCheked}
+          cancelText="Cancelar"
+          okText={post.status === '1' ? 'Sí, dejar de publicar' : 'Sí, publicar'}
+          onOk={() => handleUpdatePostPublish(post.id)}
+          cancelButtonProps={{
+            style: { backgroundColor: '#fff', color: '#005692', border: '1px solid #005692' }
+          }}
+          okButtonProps={{ style: { backgroundColor: '#005692', color: '#fff' } }}
         />
       </div>
     </div>
@@ -129,7 +129,7 @@ CardDashboard.propTypes = {
   setRefreshData: proptypes.func.isRequired,
   refreshData: proptypes.bool.isRequired,
   isCheked: proptypes.bool,
-  onCheckboxChange : proptypes.func
+  onCheckboxChange: proptypes.func
 
 }
 

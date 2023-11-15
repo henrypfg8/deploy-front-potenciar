@@ -49,7 +49,7 @@ export const createPost = (post) => {
     try {
       const config = configureHeaders();
       const response = await axios.post(
-        "http://localhost:19789/posts",
+        "https://potenciar-solidario.onrender.com/posts",
         post,
         config
       );
@@ -66,7 +66,7 @@ export const deletePost = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.delete(
-        `http://localhost:19789/posts/${id}`,
+        `https://potenciar-solidario.onrender.com/posts/${id}`,
         config
       );
 
@@ -81,7 +81,7 @@ export const getPosts = () => {
   return async function (dispatch) {
     try {
       const config = configureHeaders();
-      const response = await axios.get("http://localhost:19789/posts", config);
+      const response = await axios.get("https://potenciar-solidario.onrender.com/posts", config);
       dispatch({ type: GET_POSTS, payload: response.data });
     } catch (error) {
       console.log(error, "por favor contactar a soporte por este error");
@@ -94,7 +94,7 @@ export const getPostDetail = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        `http://localhost:19789/posts/${id}`,
+        `https://potenciar-solidario.onrender.com/posts/${id}`,
         config
       );
       dispatch({ type: GET_POST_DETAIL, payload: response.data });
@@ -109,7 +109,7 @@ export const updatePost = (id, updatePostData) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `http://localhost:19789/posts/${id}`,
+        `https://potenciar-solidario.onrender.com/posts/${id}`,
         updatePostData,
         config
       );
@@ -177,7 +177,7 @@ export const getPostsFiltered = (filters) => {
     try {
       const config = configureHeaders();
       const { data } = await axios.get(
-        `http://localhost:19789/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+        `https://potenciar-solidario.onrender.com/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
         config
       );
       dispatch({
@@ -209,7 +209,7 @@ export const like = (idPublication) => {
     try {
       const config = configureHeaders();
       const response = await axios.post(
-        `http://localhost:19789/posts/like`,
+        `https://potenciar-solidario.onrender.com/posts/like`,
         { idPublication },
         config
       );
@@ -225,7 +225,7 @@ export const disLike = (idPublication) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `http://localhost:19789/posts/like`,
+        `https://potenciar-solidario.onrender.com/posts/like`,
         { idPublication },
         config
       );
@@ -242,7 +242,7 @@ export const createPostReview = (comment) => {
     try {
       const config = configureHeaders();
       const response = await axios.post(
-        "http://localhost:19789/comment/create",
+        "https://potenciar-solidario.onrender.com/comment/create",
         comment,
         config
       );
@@ -260,7 +260,7 @@ export const deletePostReview = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.delete(
-        `http://localhost:19789/comment/delete/${id}`,
+        `https://potenciar-solidario.onrender.com/comment/delete/${id}`,
         config
       );
       dispatch({ type: DELETE_POST_REVIEW, payload: response.data });
@@ -275,7 +275,7 @@ export const updatePostReview = (id, updatedPostReview) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `http://localhost:19789/comment/${id}`,
+        `https://potenciar-solidario.onrender.com/comment/${id}`,
         updatedPostReview,
         config
       );

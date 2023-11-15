@@ -14,7 +14,7 @@ import axios from "axios";
         return async function (dispatch) {
             try {
                 const config= configureHeaders()
-                const response = await axios.post("http://localhost:19789/users", user,config);
+                const response = await axios.post("https://potenciar-solidario.onrender.com/users", user,config);
                 dispatch({type: CREATE_USER, payload: response});
             } catch (error) {   
                 console.log(error, "por favor contactar a soporte por este error")
@@ -26,7 +26,7 @@ import axios from "axios";
         return async function (dispatch) {
             try {
                 const config= configureHeaders()
-                const response = await axios.delete(`http://localhost:19789/users/${id}`, config);
+                const response = await axios.delete(`https://potenciar-solidario.onrender.com/users/${id}`, config);
                 dispatch({type: DELETE_USER, payload: response.data});
             } catch (error) {
                 console.log(error, "por favor contactar a soporte por este error")
@@ -38,7 +38,7 @@ import axios from "axios";
         return async function (dispatch) {
             try {
                 const config= configureHeaders()
-                const response = await axios.get("http://localhost:19789/users",config);
+                const response = await axios.get("https://potenciar-solidario.onrender.com/users",config);
                 dispatch({type: GET_USERS, payload: response.data});
             } catch (error) {
                 console.log(error, "por favor contactar a soporte por este error")
@@ -50,7 +50,7 @@ import axios from "axios";
         return async function (dispatch) {
             try {
                 const config= configureHeaders()
-                const response = await axios.get(`http://localhost:19789/users/${id}`,config);
+                const response = await axios.get(`https://potenciar-solidario.onrender.com/users/${id}`,config);
                 dispatch({type: GET_USER_DETAIL, payload: response.data});
             } catch (error) {
                 console.log(error, "por favor contactar a soporte por este error")
@@ -66,7 +66,7 @@ import axios from "axios";
         return async function (dispatch) {
             try {
                 const config= configureHeaders()
-                const response = await axios.put(`http://localhost:19789/users/${id}`, updatedUserData,config);
+                const response = await axios.put(`https://potenciar-solidario.onrender.com/users/${id}`, updatedUserData,config);
                 dispatch({type: UPDATE_USER, payload: response.data})
             } catch (error) {
                 console.log(error, "por favor contactar a soporte por este error");

@@ -32,12 +32,12 @@ export default function PostFilters() {
   //
   const searchValue = useSelector((state) => state.posts.searchValue);
   const selectedFilterOptions = useSelector(state => state.posts.selectedFilterOptions)
-  const [selectedFilterOptionsLOCAL, setSelectedFilterOptionsLOCAL ] = useState({
-    category: {label: "Todas las categorias", name: "category", value: ''},
-    ong: {label: "Todas las organizaciones", name: "ong", value: ''},
-    user: {label: "Todos los usuarios", name: 'user', value: ''}
+  const [selectedFilterOptionsLOCAL, setSelectedFilterOptionsLOCAL] = useState({
+    category: { label: "Todas las categorias", name: "category", value: '' },
+    ong: { label: "Todas las organizaciones", name: "ong", value: '' },
+    user: { label: "Todos los usuarios", name: 'user', value: '' }
   })
-  
+
 
   //
   const categoryOptions = categories.map(({ name }) => ({
@@ -82,18 +82,18 @@ export default function PostFilters() {
     untilDate: "",
     user: ""
   });
-  
-  
+
+
   //manejador de filtros de categoria y ong
   const handleFilters = (e) => {
     const { label, name, value } = e;
     setSelectedFilterOptionsLOCAL({
       ...selectedFilterOptionsLOCAL,
-      [name]: {label, name, value}
+      [name]: { label, name, value }
     })
     dispatch(setSelectedFilterOptions({
       ...selectedFilterOptionsLOCAL,
-      [name]: {label, name, value}
+      [name]: { label, name, value }
     }))
     setFiltersLOCAL({ ...filters, [name]: value });
     dispatch(setLoading());
@@ -103,12 +103,12 @@ export default function PostFilters() {
       const { category, ong, fromDate, untilDate, user } = filtersToApply;
       axios
         .get(
-          `http://localhost:19789/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+          `https://potenciar-solidario.onrender.com/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
           config
         )
         .then(({ data }) => dispatch(searchPosts(data, searchValue))).then(() => dispatch(hideLoading()))
     } else {
-      dispatch(getPostsFiltered({ ...filters, [name]: value })).then(() => dispatch(hideLoading())); 
+      dispatch(getPostsFiltered({ ...filters, [name]: value })).then(() => dispatch(hideLoading()));
     }
   };
   const handleFromDate = (date) => {
@@ -121,7 +121,7 @@ export default function PostFilters() {
       const { category, ong, untilDate, user } = { ...filters };
       axios
         .get(
-          `http://localhost:19789/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+          `https://potenciar-solidario.onrender.com/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
           config
         )
         .then(({ data }) => dispatch(searchPosts(data, searchValue))).then(() => dispatch(hideLoading()));
@@ -139,7 +139,7 @@ export default function PostFilters() {
       const { category, ong, fromDate, user } = { ...filters };
       axios
         .get(
-          `http://localhost:19789/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+          `https://potenciar-solidario.onrender.com/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
           config
         )
         .then(({ data }) => dispatch(searchPosts(data, searchValue))).then(() => dispatch(hideLoading()));
@@ -153,7 +153,7 @@ export default function PostFilters() {
     setFiltersLOCAL(filters);
     setSelectedFilterOptionsLOCAL(selectedFilterOptions)
   }, [filters, selectedFilterOptions]);
- 
+
 
   ///////////////////////////////////////////////////////////////
 

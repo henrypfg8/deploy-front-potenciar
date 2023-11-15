@@ -17,7 +17,7 @@ export const getAnswers = () => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        "http://localhost:19789/answers",
+        "https://potenciar-solidario.onrender.com/answers",
         config
       );
 
@@ -33,7 +33,7 @@ export const createAnswer = (answer) => {
     try {
       const config = configureHeaders();
       const response = await axios.post(
-        "http://localhost:19789/answers",
+        "https://potenciar-solidario.onrender.com/answers",
         answer,
         config
       );
@@ -51,7 +51,7 @@ export const updateAnswer = (id, updatedAnswerData) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `http://localhost:19789/answers/${id}`,
+        `https://potenciar-solidario.onrender.com/answers/${id}`,
         updatedAnswerData,
         config
       );
@@ -69,7 +69,7 @@ export const deleteAnswer = (id) => {
       const config = configureHeaders();
       console.log('prueba 2')
       const response = await axios.delete(
-        `http://localhost:19789/answers/${id}`,
+        `https://potenciar-solidario.onrender.com/answers/${id}`,
         config
         );
         console.log('prueba 3')
@@ -90,7 +90,7 @@ export const createAnswerComment = (comment) => {
       console.log(comment);
       const config = configureHeaders();
       const response = await axios.post(
-        "http://localhost:19789/answers/comments",
+        "https://potenciar-solidario.onrender.com/answers/comments",
         comment,
         config
       );
@@ -106,7 +106,7 @@ export const deleteAnswerComment = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.delete(
-        `http://localhost:19789/answers/comments/${id}`,
+        `https://potenciar-solidario.onrender.com/answers/comments/${id}`,
         config
       );
       dispatch({ type: DELETE_ANSWER_COMMENT, payload: response.data });
@@ -121,7 +121,7 @@ export const updateAnswerComment = (id, updatedAnswerComment) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `http://localhost:19789/answers/comments/${id}`,
+        `https://potenciar-solidario.onrender.com/answers/comments/${id}`,
         updatedAnswerComment,
         config
       );
@@ -137,7 +137,7 @@ export const getAnswerComment = () => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        "http://localhost:19789/answers/comments",
+        "https://potenciar-solidario.onrender.com/answers/comments",
         config
       );
       dispatch({ type: GET_ANSWER_COMMENT, payload: response.data });

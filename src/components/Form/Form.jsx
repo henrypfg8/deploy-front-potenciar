@@ -62,12 +62,12 @@ const Form = ({ setPost, post }) => {
     }, [isAuthenticated, token])
 
     //useEffect para obtener una publicación por id, en caso que exista
-    useEffect(() => { 
+    useEffect(() => {
         const getPost = async () => {
             if (id) { // Si hay id, obtener la publicación
                 const config = configureHeaders();
                 try {
-                    const { data } = await axios(`http://localhost:19789/posts/${id}`, config);
+                    const { data } = await axios(`https://potenciar-solidario.onrender.com/posts/${id}`, config);
                     //poner los valores en el formulario por medio se setValue
                     setValue('title', data.title)
                     setValue('category', data.category)
@@ -111,7 +111,7 @@ const Form = ({ setPost, post }) => {
 
     //funcion para Actualizar la publicación
     const handleUpdate = async (id, info) => {
-        const { data } = await axios.put(`http://localhost:19789/posts/${id}`, { ...info }, {
+        const { data } = await axios.put(`https://potenciar-solidario.onrender.com/posts/${id}`, { ...info }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -121,7 +121,7 @@ const Form = ({ setPost, post }) => {
     }
 
     // funcion para Enviar el formulario de la publicación
-    const onSubmit = async data => { 
+    const onSubmit = async data => {
 
         const urlImage = await uploadImageCloudinary(imgFile);
 
@@ -175,7 +175,7 @@ const Form = ({ setPost, post }) => {
                     console.log(error.response.data.message)
                     setErrorPost(true);
                     setSuccess(false);
-                 
+
                     const errorTimeout = setTimeout(() => {
                         setErrorPost(false);
                     }, 3000);
@@ -199,7 +199,7 @@ const Form = ({ setPost, post }) => {
             registrationLink: '',
             url: '',
         }) // Limpiar el formulario
-        
+
         reset();//limpiar el formulario
         return
     }
@@ -400,7 +400,7 @@ const Form = ({ setPost, post }) => {
                         })}
                     />
                 </div>
-                <button className='form__btn' type='submit'>{ id ? 'Actualizar Publicacion': 'Enviar Solicitud'}</button>
+                <button className='form__btn' type='submit'>{id ? 'Actualizar Publicacion' : 'Enviar Solicitud'}</button>
             </form>
         </div>
     )

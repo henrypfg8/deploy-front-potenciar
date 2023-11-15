@@ -13,14 +13,14 @@ const Email = () => {
 
     const handleSendEmail = async (email) => {
         try {
-            const { data } = await axios.put('http://localhost:19789/forgotpassword', {email})
+            const { data } = await axios.put('https://potenciar-solidario.onrender.com/forgotpassword', { email })
             console.log(data)
             setErrorEmail(false);
             setSuccessEmail(true);
             setTimeout(() => {
                 setSuccessEmail(false);
                 navigate('/login');
-            }, [9000]);	
+            }, [9000]);
             return data
         }
         catch (error) {
@@ -33,7 +33,7 @@ const Email = () => {
     };
 
 
-    const onsubmit = handleSubmit((email) => {       
+    const onsubmit = handleSubmit((email) => {
         handleSendEmail(email.email);
 
     });
