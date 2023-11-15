@@ -11,10 +11,23 @@ import {
   //   GET_POSTS_BY_ONGS,
   GET_POSTS_FILTERED,
   SET_POSTS_FILTERS,
-} from "../action-types";
+  CREATE_POST_REVIEW,
+  DELETE_POST_REVIEW,
+  UPDATE_POST_REVIEW,
+  SET_SEARCH_VALUE,
+  LIKE,
+  DISLIKE,
+  SET_LOADING,
+  HIDE_LOADING,
+  SET_ORDERINGS,
+  SET_SELECTED_FILTER_OPTIONS,
+  SET_SELECTED_ORDERINGS_OPTION
+} from "../action types/postsActionTypes.js";
 
 import axios from "axios";
 import unorm from "unorm";
+
+import { configureHeaders } from "../auth/configureHeaders ";
 
 //funcion que se usa en searchPosts()
 const searchCoincidences = (string, subString) => {
@@ -34,9 +47,11 @@ const searchCoincidences = (string, subString) => {
 export const createPost = (post) => {
   return async function (dispatch) {
     try {
+      const config = configureHeaders();
       const response = await axios.post(
-        "https://potenciar-solidario.onrender.com/posts",
-        post
+        "http://localhost:19789/posts",
+        post,
+        config
       );
       console.log(response + "soy el response");
       dispatch({ type: CREATE_POST, payload: response.data });
@@ -49,9 +64,12 @@ export const createPost = (post) => {
 export const deletePost = (id) => {
   return async function (dispatch) {
     try {
+      const config = configureHeaders();
       const response = await axios.delete(
-        `https://potenciar-solidario.onrender.com/posts/${id}`
+        `http://localhost:19789/posts/${id}`,
+        config
       );
+
       dispatch({ type: DELETE_POST, payload: response.data });
     } catch (error) {
       console.log(error, "por favor contactar a soporte por este error");
@@ -62,9 +80,8 @@ export const deletePost = (id) => {
 export const getPosts = () => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(
-        "https://potenciar-solidario.onrender.com/posts"
-      );
+      const config = configureHeaders();
+      const response = await axios.get("http://localhost:19789/posts", config);
       dispatch({ type: GET_POSTS, payload: response.data });
     } catch (error) {
       console.log(error, "por favor contactar a soporte por este error");
@@ -75,8 +92,10 @@ export const getPosts = () => {
 export const getPostDetail = (id) => {
   return async function (dispatch) {
     try {
+      const config = configureHeaders();
       const response = await axios.get(
-        `https://potenciar-solidario.onrender.com/posts/${id}`
+        `http://localhost:19789/posts/${id}`,
+        config
       );
       dispatch({ type: GET_POST_DETAIL, payload: response.data });
     } catch (error) {
@@ -88,9 +107,11 @@ export const getPostDetail = (id) => {
 export const updatePost = (id, updatePostData) => {
   return async function (dispatch) {
     try {
+      const config = configureHeaders();
       const response = await axios.put(
-        `https://potenciar-solidario.onrender.com/posts/${id}`,
-        updatePostData
+        `http://localhost:19789/posts/${id}`,
+        updatePostData,
+        config
       );
       dispatch({ type: UPDATE_POST, payload: response.data });
     } catch (error) {
@@ -100,44 +121,50 @@ export const updatePost = (id, updatePostData) => {
 };
 
 export const searchPosts = (posts, searchValue) => {
-  try {
-    const action = {
-      type: SEARCH_POSTS,
-      payload: [],
-    };
+  return async (dispatch) => {
+    try {
+      const action = {
+        type: SEARCH_POSTS,
+        payload: [],
+      };
 
-    if (Array.isArray(searchValue)) {
-      if (searchValue.includes(" ")) {
-        searchValue = searchValue.filter((e) => e !== " ");
-      }
-      const searchedPosts = posts.filter(({ title, description, category }) => {
-        for (let subString of searchValue) {
-          if (
-            searchCoincidences(title, subString) ||
-            searchCoincidences(description, subString) ||
-            searchCoincidences(category, subString)
-          )
-            return true;
+      if (Array.isArray(searchValue)) {
+        if (searchValue.includes(" ")) {
+          searchValue = searchValue.filter((e) => e !== " ");
         }
-      });
-      action.payload = searchedPosts;
-    } else {
-      const searchedPosts = posts.filter(({ title, description, category }) => {
-        if (
-          searchCoincidences(title, searchValue) ||
-          searchCoincidences(description, searchValue) ||
-          searchCoincidences(category, searchValue)
-        )
-          return true;
-        else return false;
-      });
-      action.payload = searchedPosts;
-    }
+        const searchedPosts = posts.filter(
+          ({ title, description, category }) => {
+            for (let subString of searchValue) {
+              if (
+                searchCoincidences(title, subString) ||
+                searchCoincidences(description, subString) ||
+                searchCoincidences(category, subString)
+              )
+                return true;
+            }
+          }
+        );
+        action.payload = searchedPosts;
+      } else {
+        const searchedPosts = posts.filter(
+          ({ title, description, category }) => {
+            if (
+              searchCoincidences(title, searchValue) ||
+              searchCoincidences(description, searchValue) ||
+              searchCoincidences(category, searchValue)
+            )
+              return true;
+            else return false;
+          }
+        );
+        action.payload = searchedPosts;
+      }
 
-    return action;
-  } catch (error) {
-    console.log("Error al buscar posts:", error);
-  }
+      dispatch(action);
+    } catch (error) {
+      console.log("Error al buscar posts: ", error);
+    }
+  };
 };
 
 export const clearPostDetail = () => {
@@ -145,11 +172,13 @@ export const clearPostDetail = () => {
 };
 
 export const getPostsFiltered = (filters) => {
-  const { category, ong, fromDate, untilDate } = filters;
+  const { category, ong, fromDate, untilDate, user } = filters;
   return async function (dispatch) {
     try {
+      const config = configureHeaders();
       const { data } = await axios.get(
-        `https://potenciar-solidario.onrender.com/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}`
+        `http://localhost:19789/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+        config
       );
       dispatch({
         type: GET_POSTS_FILTERED,
@@ -167,3 +196,126 @@ export const setPostsFilters = (postsFilters) => {
     payload: postsFilters,
   };
 };
+
+export const setSearchValue = (searchValue) => {
+  return {
+    type: SET_SEARCH_VALUE,
+    payload: searchValue,
+  };
+};
+
+export const like = (idPublication) => {
+  return async function (dispatch) {
+    try {
+      const config = configureHeaders();
+      const response = await axios.post(
+        `http://localhost:19789/posts/like`,
+        { idPublication },
+        config
+      );
+      dispatch({ type: LIKE, payload: response.data });
+    } catch (error) {
+      console.log(error, "por favor contactar a soporte por este error");
+    }
+  };
+};
+
+export const disLike = (idPublication) => {
+  return async function (dispatch) {
+    try {
+      const config = configureHeaders();
+      const response = await axios.put(
+        `http://localhost:19789/posts/like`,
+        { idPublication },
+        config
+      );
+      response.data.publicationId = idPublication
+      dispatch({ type: DISLIKE, payload: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const createPostReview = (comment) => {
+  return async function (dispatch) {
+    try {
+      const config = configureHeaders();
+      const response = await axios.post(
+        "http://localhost:19789/comment/create",
+        comment,
+        config
+      );
+      dispatch({ type: CREATE_POST_REVIEW, payload: response.data });
+      return Promise.resolve(response)
+    } catch (error) {
+      console.log(error, "por favor contactar a soporte por este error");
+      return Promise.reject(error)
+    }
+  };
+};
+
+export const deletePostReview = (id) => {
+  return async function (dispatch) {
+    try {
+      const config = configureHeaders();
+      const response = await axios.delete(
+        `http://localhost:19789/comment/delete/${id}`,
+        config
+      );
+      dispatch({ type: DELETE_POST_REVIEW, payload: response.data });
+    } catch (error) {
+      console.log(error, "por favor contactar a soporte por este error");
+    }
+  };
+};
+
+export const updatePostReview = (id, updatedPostReview) => {
+  return async function (dispatch) {
+    try {
+      const config = configureHeaders();
+      const response = await axios.put(
+        `http://localhost:19789/comment/${id}`,
+        updatedPostReview,
+        config
+      );
+      dispatch({ type: UPDATE_POST_REVIEW, payload: response.data });
+    } catch (error) {
+      console.log(error, "por favor contactar a soporte por este error");
+    }
+  };
+};
+
+export const setLoading = () => {
+  return {
+    type: SET_LOADING,
+  };
+};
+
+export const hideLoading = () => {
+  return {
+    type: HIDE_LOADING,
+  };
+};
+
+export const setOrderings = (orderBy) => {
+  return {
+    type: SET_ORDERINGS,
+    payload: orderBy
+  }
+}
+
+export const setSelectedFilterOptions = (selectedFilterOptions) => {
+  return {
+    type: SET_SELECTED_FILTER_OPTIONS,
+    payload: selectedFilterOptions
+  }
+}
+
+export const setSelectedOrderingsOption = (selectedOrderingOption) => {
+  console.log(selectedOrderingOption)
+  return {
+    type: SET_SELECTED_ORDERINGS_OPTION,
+    payload: selectedOrderingOption
+  }
+}

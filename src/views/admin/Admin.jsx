@@ -1,50 +1,46 @@
-import { useState, useEffect } from 'react'
+import {  useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Dashboard from '../../components/dashboard/Dashboard';
-import Sidebar from '../../components/dashboard/Sidebar';
-
-//import DrawerSideBar from '../../components/dashboard/DrawerSideBar';
+import { useNavigate, Outlet } from 'react-router-dom';
+import Sidebar from '../../components/dashboard/Sidebar/Sidebar';
 import './admin.css';
 
 const Admin = () => {
-    const [search, setSearch] = useState('');
-    const [listSearchPost, setListSearchPost] = useState([]);
-    const { isAuthenticated, } = useSelector(state => state.auth);
+    const { isAuthenticated, userProfile, isAdmin} = useSelector(state => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
+    
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (!token || !isAuthenticated) {
+        if (!token || !isAuthenticated  ) {
             // Si no hay token o el estado no está autenticado, redirigir a login
             navigate('/login');
             return
         } 
-    }, [dispatch, isAuthenticated, navigate])
+    }, [dispatch, isAuthenticated, navigate]);
 
+
+    useEffect(() => {
+ 
+        if (!userProfile.admin || !isAdmin ) {
+            
+            // Si no hay token o el estado no está autenticado, redirigir a login
+          
+            return
+        } 
+        
+    }, [dispatch, isAuthenticated, navigate]);
+ 
 
     return (
         <div >
-            
+    
             <div className='admin__container'>
-                {/* <DrawerSideBar/> */} {/*Opcion 2 */}
-                < Sidebar
-                    search={search}
-                    setSearch={setSearch}
-                    listSearchPost={listSearchPost}
-                    setListSearchPost={setListSearchPost}
-
-                />
-                <Dashboard
-                    search={search}
-                    setSearch={setSearch}
-                    listSearchPost={listSearchPost}
-                  
-             
-                />
+                < Sidebar />  
+                <Outlet/> 
             </div>
-
+           
         </div>
     )
 }

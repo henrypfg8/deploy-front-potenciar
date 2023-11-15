@@ -1,57 +1,105 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import style from "./QuestionDetail.module.css";
 import { useEffect, useState } from "react";
 import { FlechaAbajoIcon } from "../../assets/FlechaParaAbajoIcon";
 import { FlechaParaArriba } from "../../assets/FlechaParaArribaIcon";
-import io from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 import { jwtDecode } from "jwt-decode";
-import { createAnswer } from "../../Redux/actions/answersActions";
+import {
+  createAnswer,
+  createAnswerComment,
+  deleteAnswer,
+} from "../../Redux/actions/answersActions";
 import { useNavigate } from "react-router";
-import { getQuestionDetail } from "../../Redux/actions/questionsActions";
-const socket = io("/");
+import {
+  deleteQuestion,
+  getQuestionDetail,
+} from "../../Redux/actions/questionsActions";
+import validation from "./validation";
+import CustomizedMenus from "../../assets/MenuDespegable";
+import ImageAvatars from "../../assets/AvatarImage";
+import Notifications from "../../components/Notifications/Notifications";
+import { Oval } from "react-loader-spinner";
 
-function QuestionView({ question }) {
+function QuestionView({ question, answers }) {
   const [userId, setUserId] = useState("");
   const { isAuthenticated, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [view, setView] = useState({});
   const navigate = useNavigate();
+  const [disable, setDisable] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState("");
+  const [comment, setComment] = useState({
+    thread: "",
+    userId: "",
+    answerId: "",
+  });
+
+  const [errores, setErrores] = useState({
+    answer: "",
+  });
   const [answer, setAnswer] = useState({
     answer: "",
     userId: "",
     questionId: "",
   });
-  const dispatch = useDispatch();
 
-  const handleChange = (event) => {
-    setMessage(event.target.value);
-  };
-
-  const handleAnswers = (event) => {
-    setAnswer({
-      ...answer,
-      answer: event.target.value,
+  const handleChange = (event, id) => {
+    event.preventDefault();
+    setComment({
+      ...comment,
+      thread: event.target.value,
       userId: userId,
+      answerId: id,
       questionId: question.id,
     });
   };
+
   const answersSubmit = (answer) => {
-    if (answer) {
-      dispatch(createAnswer(answer));
-      dispatch(getQuestionDetail(question.id));
+    if (Object.keys(errores).length === 0) {
+      setDisable(true);
+      dispatch(createAnswer(answer)).then(() => {
+        dispatch(getQuestionDetail(question.id));
+        setAnswer({
+          answer: "",
+        });
+        swal({
+          icon: "success",
+          text: "Respuesta creada con exito",
+        }).catch(() => {
+          setDisable(false); 
+          swal({
+            icon: "error",
+            text: `contacte a soporte`,
+          });
+        });
+      }).catch(() => {
+        setDisable(false); 
+      });
     }
+    <Notifications />;
   };
+  
+
   const handleSubmit = (message) => {
-    event.preventDefault();
-    const newMessage = {
-      body: message,
-      from: "me",
-    };
-    setMessages([...messages, newMessage]);
-    socket.emit("message", message);
+    dispatch(createAnswerComment(message))
+      .then((response) => {
+        setComment({ thread: "" });
+        swal({
+          icon: "success",
+          text: "Comentario creado con éxito",
+        });
+        console.log(question);
+        dispatch(getQuestionDetail(question.id));
+      })
+      .catch((error) => {
+        swal({
+          icon: "error",
+          text: "contacte a soporte",
+        });
+      });
   };
   useEffect(() => {
     if (!token || !isAuthenticated) {
@@ -67,48 +115,125 @@ function QuestionView({ question }) {
         setUserId(decodify.id);
       }
     }
-  }, []);
-  const receiveMessage = (message) =>
-    setMessages((state) => [...state, message]);
+  }, [isAuthenticated, navigate, token]);
 
-  useEffect(() => {
-    socket.on("message", receiveMessage);
-
-    return () => {
-      socket.off("message", receiveMessage);
-    };
-  }, []);
   const handleView = (id) => {
     setView((prevState) => ({
       ...prevState,
       [id]: !prevState[id],
     }));
   };
-  useEffect(() => {
-    socket.on("message", (message) => {
-      console.log(message);
+  const handleAnswers = (event) => {
+    setErrores(
+      validation({
+        ...answer,
+        answer: event.target.value,
+      })
+    );
+    setAnswer({
+      ...answer,
+      answer: event.target.value,
+      userId: userId,
+      questionId: question.id,
     });
-  }, []);
+  };
 
-  const dateQuestion = question?.createdAt?.split("T")[0];
+  useEffect(() => {
+    if (errores.answer) {
+      setDisable(true);
+    } else {
+      setDisable(false);
+    }
+  }, [handleAnswers, errores.answer]);
 
-  // console.log(dateQuestion);
+  const deleteQuestions = (handleClose) => {
+    handleClose();
+    swal({
+      title: "¿Estás seguro quse sea eliminar está pregunta?",
+      text: "Una vez eliminada por puede ser recuperada!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(deleteQuestion(question.id))
+          .then(() => {
+            swal("Tu pregunta ha sido eliminada con éxito!", {
+              icon: "success",
+            });
+            navigate("/foro");
+          })
+          .catch(() => {
+            swal(
+              "Ha ocurrido un error. Por favor, inténtelo de nuevo o contacte al soporte.",
+              {
+                icon: "error",
+              }
+            );
+          });
+      }
+    });
+  };
+
+  const editQuestion = (handleClose) => {
+    handleClose();
+    navigate(`/foro/edit/${question.id}`);
+  };
+
+  const deleteAnswers = (index) => {
+    swal({
+      title: "¿Desea eliminar esta respuesta?",
+      text: "! Una vez eliminada no se puede revertir !",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+    console.log(index);
+      if (willDelete) {
+        dispatch(deleteAnswer(index))
+      }
+    });
+  }
+  const dateQuestion = new Date (question?.createdAt)
 
   return (
-    <div>
+    <div className={style.container}>
       {question ? (
         <div className={style.container}>
           <div className={style.div1}>
-            <div>
-              <h1>{question?.title}</h1>
-              <div className={style.date}>
-                <a>
-                  Fecha de publicacion: <h5>{dateQuestion}</h5>
-                </a>
+            <h1>{question?.title}</h1>
+            {question.userId === userId && (
+              <div className={style.option}>
+                <CustomizedMenus
+                  deleteQuestion={deleteQuestions}
+                  editQuestion={editQuestion}
+                />
               </div>
-              <h3>{question?.User?.name}</h3>
-              <p>{question?.text}</p>
+            )}
+            <div className={style.date}>
+              <ImageAvatars
+                image={question?.User?.profile_picture}
+                name={question?.User?.name}
+              />
+              
+                 
+              
+              <a>
+                Fecha de publicacion:{ <h4>{dateQuestion.toLocaleString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })}</h4>}
+              </a>
             </div>
+
+            <p>{question?.text}</p>
+            {answers?.map((answer) =>
+              answer.Comments?.map((comment) => (
+                <div key={comment.id}>
+                  <h3>{comment.User.name}</h3>
+                  <p>{comment.thread}</p>
+                  <p>{new Date(comment.createdAt).toLocaleString()}</p>
+                </div>
+              ))
+            )}
           </div>
 
           <div className={style.contain}>
@@ -133,11 +258,38 @@ function QuestionView({ question }) {
             )}
 
             {question.Answers?.map((respuesta, index) => {
+              var date = new Date(respuesta.createdAt);
+              console.log(respuesta);
               return (
                 <div key={index} className={style.response}>
                   <p>{respuesta.answer}</p>
-                  <h4>{respuesta.User.name}</h4>
+                  <h4>{respuesta.User.name} - {date.toLocaleString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })}<h4></h4></h4>
+                  
+                 
+                    {
+                      userId === respuesta.userId && 
+                      <div className={style.edit}>
+                        <a onClick={() => deleteAnswers(respuesta.id)}>Eliminar Pregunta</a>
+                        <a href="">Editar Pregunta</a>
+                      </div>
+                    }
+                  <div>
+                    {respuesta?.Comments?.map((el, index) => {
+                      var date = new Date(el.createdAt);
+                      return (
+                        <div
+                        key={el.id}
+                        className={style.comments}
+                        >
+                          <h4>{index + 1}</h4>
+                          <p>{el.thread} -</p>
+                          <h3>{el.User?.name}</h3>   
+                          <h4>{date.toLocaleString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })}</h4>
+                        </div>
+                      );
+                    })}
 
+                  </div>
                   {!view[index] ? (
                     <a onClick={() => handleView(index)}>
                       Añadir comentario
@@ -152,23 +304,17 @@ function QuestionView({ question }) {
 
                   {view[index] && (
                     <div className={style.comment}>
-                      <ul>
-                        {messages.map((message, index) => {
-                          return (
-                            <li key={index}>
-                              {message.from}:{message.body}
-                            </li>
-                          );
-                        })}
-                      </ul>
                       <p>Comentar</p>
                       <textarea
+                        style={{ resize: "none" }}
+                        name="thread"
                         type="text"
                         cols="6"
                         rows="5"
-                        onChange={() => handleChange(event)}
+                        value={comment.thread}
+                        onChange={(e) => handleChange(e, respuesta.id)}
                       />
-                      <button onClick={() => handleSubmit(message)}>
+                      <button onClick={() => handleSubmit(comment)}>
                         Añadir comentario
                       </button>
                     </div>
@@ -177,18 +323,45 @@ function QuestionView({ question }) {
               );
             })}
             <div className={style.question}>
-              <textarea type="text" rows="8" onChange={handleAnswers} />
-              <button
-                disabled={answer?.answer?.length < 20}
-                onClick={() => answersSubmit(answer)}
-              >
-                Responder
-              </button>
+              <div className={style.errores}>
+                {errores.answer && <p>{errores.answer}</p>}
+              </div>
+              <label htmlFor="">¿Cuál es tu respuesta? </label>
+              <textarea
+                style={{ resize: "none" }}
+                type="text"
+                name="answer"
+                rows="8"
+                value={answer.answer}
+                onChange={handleAnswers}
+              />
+
+              {disable ? 
+                <button
+                  disabled
+                  className={style.buttonDisable}
+                >
+                  Responder
+                </button>
+               : 
+                <button className={style.button} onClick={() => answersSubmit(answer)}>Responder</button>
+            }
             </div>
           </div>
         </div>
       ) : (
-        <div>Cargando</div>
+        <Oval
+          height={80}
+          width={80}
+          color="#005692"
+          wrapperStyle={{ margin: "auto auto" }}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="#a4d4ff"
+          strokeWidth={3}
+          strokeWidthSecondary={3}
+        />
       )}
     </div>
   );

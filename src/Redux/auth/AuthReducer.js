@@ -12,6 +12,7 @@ const initialState = {
     loading: true,
     errorRegister: null,
     errorLogin: null,
+    deleteSuccess: false,   
 }
 
 
@@ -24,12 +25,14 @@ const authReducer = (state = initialState, action) => {
                 user: action.payload,
             }
         case types.LOGIN:
-          localStorage.setItem('token', JSON.stringify(action.payload.jwt));
+          localStorage.setItem('token', action.payload.jwt);
+            console.log(action.payload)
+
             return {
                 ...state,
                 token: action.payload.jwt,
                 isAuthenticated: true,
-                // isAdmin: action.payload.user.isAdmin,
+                isAdmin: state.userProfile.admin ,
                 loading: false,
             }
         case types.LOGOUT:
@@ -43,18 +46,21 @@ const authReducer = (state = initialState, action) => {
                 loading: false,
             } 
         case types.LOGIN_WITH_GOOGLE:
-            localStorage.setItem('token', JSON.stringify(action.payload.jwt));
+            localStorage.setItem('token', action.payload.jwt);
             return {
                 ...state,
                 token: action.payload.jwt,
                 isAuthenticated: true,
+                isAdmin: state.userProfile.admin ,
                 loading: false,
+                deleteSuccess: false,
             }
         case types.GET_PROFILE:
             return {
                 ...state,
                 userProfile: action.payload,
                 loading: false,
+                isAdmin: state.userProfile.admin ,
             } 
         case types.UPDATE_PROFILE:
             return {
@@ -72,6 +78,7 @@ const authReducer = (state = initialState, action) => {
                 token: null,
                 isAuthenticated: false,
                 isAdmin: false,
+                deleteSuccess: true,
                 
             }        
         case types.ERROR_REGISTER:
@@ -84,7 +91,20 @@ const authReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     errorLogin: action.payload,
+                    deleteSuccess: false,
                 }
+                
+        case types.DELETE_SUCCESS:
+            return {
+                ...state,
+                deleteSuccess: true,
+            }        
+        case types.CLEAN_DELETE_SUCCESS:
+            return {
+                ...state,
+                deleteSuccess: false,
+            }
+
          default : {
                 return {...state};
          }

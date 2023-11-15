@@ -27,7 +27,7 @@
 
 .profile__h3{
     color: var(--dark_blue_color);
-    padding: 0.4rem;
+    padding: 0.2rem;
     border-radius: 5px;
     border-bottom: #cbd5e1 1px solid;
     margin-top: 0.5rem;
@@ -128,6 +128,7 @@
     display: grid;
     grid-template-columns: 1fr 3fr;
     margin-bottom: 10px;
+    margin: 0;
 }
 .profile__drawer--links{
         display:flex;

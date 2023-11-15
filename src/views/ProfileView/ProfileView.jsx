@@ -9,30 +9,41 @@ import './Profile.css'
 
 const ProfileView = () => {
     const { isAuthenticated, userProfile } = useSelector(state => state.auth);
+  
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [success, setSuccess] = useState(false)
-    
+    const token = localStorage.getItem('token');
+    // console.log(token)
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (!token || !isAuthenticated) {
-            // Si no hay token o el estado no está autenticado, redirigir a login
-            navigate('/login');
-        } else {
-            const decodedToken = jwtDecode(token); // Decodificar el token y obtener el id del usuario
+       
+       if(!token || !isAuthenticated){
+           navigate('/login')
 
-            dispatch(getProfile(decodedToken.id))
-        }
-    }, [dispatch, isAuthenticated, navigate])
+       }
+       else{
+        const decoded = jwtDecode(token);
+        dispatch(getProfile(decoded.id, token)).then(() =>{
+            console.log(userProfile)
+        })
+        .catch(error => {
+            console.log(error.response.data, 'hubo un error')
+        })
+
+       }
+    }, [isAuthenticated, token])
 
  
 
     if (!userProfile) return null;
+  
     return (
         <>
       
             <div className='profile__container'>
-                <PhotoAndInfo userProfile={userProfile} />
+                <PhotoAndInfo userProfile={userProfile}
+                 success={success}
+                 setSuccess={setSuccess} />
                 <DataProfile userProfile={userProfile}
                     success={success}
                     setSuccess={setSuccess} />

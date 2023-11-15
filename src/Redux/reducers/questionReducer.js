@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 
-import { toast } from "react-toastify";
+import { notification } from "antd";
 import {
   CREATE_QUESTION,
   DELETE_QUESTION,
@@ -9,10 +9,32 @@ import {
   CLEAR_QUESTION_DETAIL,
   UPDATE_QUESTION,
   GET_QUESTIONS_FILTERED,
-} from "../action-types";
+  SET_QUESTIONS_FILTERS,
+  SET_QUESTIONS_ORDERINGS,
+  SET_SELECTED_FILTER_OPTIONS,
+  SET_SELECTED_ORDERING_OPTION,
+} from "../action types/questionsActionTypes.js";
 
 const initialState = {
   questions: [],
+  questionsFilters: {
+    category: 0,
+    fromDate: "",
+    untilDate: "",
+  },
+  selectedFilterOptions: {
+    category: { label: "Todas las categorias", value: 0, name: "category" },
+    user: { label: "Todos los usuarios", value: "", name: "user" },
+  },
+  questionsOrderings: {
+    value: "date",
+    direction: "asc",
+  },
+  selectedOrderingOption: {
+    name: "value",
+    value: "date",
+    label: "Fecha de creación",
+  },
   allQuestions: [],
   questionDetail: null,
 };
@@ -44,29 +66,18 @@ const questionReducer = (state = initialState, action) => {
       if (state.questionDetail) {
         const answersActual = state.questionDetail?.Answers;
 
-        console.log(answersActual, "el gordo actual");
         const answersNuevo = action.payload?.Answers;
 
         const nuevasNotificaciones = answersNuevo?.filter(
           (el) => !answersActual?.some((el2) => el2.id == el.id)
         );
 
-        console.log(nuevasNotificaciones, "nuevasnotificaciones");
-
         nuevasNotificaciones?.forEach((nuevaNotif) =>
-          toast(
-            `Nueva respuesta de ${nuevaNotif?.User?.name}: ${nuevaNotif?.answer}`,
-            {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            }
-          )
+          notification.open({
+            message: `Nueva respuesta de ${nuevaNotif?.User?.name}`,
+            description: nuevaNotif?.answer,
+            onClose: () => console.log("Notification was closed."),
+          })
         );
       }
 
@@ -95,6 +106,32 @@ const questionReducer = (state = initialState, action) => {
       return {
         ...state,
         questions: action.payload,
+      };
+
+    case SET_QUESTIONS_FILTERS:
+      return {
+        ...state,
+        questionsFilters: action.payload,
+      };
+
+    case SET_QUESTIONS_ORDERINGS: {
+      return {
+        ...state,
+        questionsOrderings: action.payload,
+      };
+    }
+
+    case SET_SELECTED_FILTER_OPTIONS: {
+      return {
+        ...state,
+        selectedFilterOptions: action.payload,
+      };
+    }
+
+    case SET_SELECTED_ORDERING_OPTION:
+      return {
+        ...state,
+        selectedOrderingOption: action.payload,
       };
 
     default:

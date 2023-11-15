@@ -2,14 +2,15 @@ import { useForm } from 'react-hook-form'
 import './auth.css';
 import { GoogleLogin } from '@react-oauth/google'
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, } from 'react-router-dom';
 import { loginUser, loginWithGoogleAction } from '../../Redux/auth/AuthActions';
 import { useEffect, useState } from 'react';
-
+import Swiper from '../Form/Swiper';
 
 const Login = () => {
 
-    const { isAuthenticated } = useSelector(state => state.auth)
+    const { isAuthenticated,deleteSuccess } = useSelector(state => state.auth);
+
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [errorLogin, setErrorLogin] = useState(false);
     const [errorLoginWithGoogle, setErrorLoginWithGoogle] = useState(false);
@@ -62,6 +63,7 @@ const Login = () => {
 
     return (
         <div className='auth__container' >
+            {deleteSuccess && <Swiper frase='Tu cuenta ha sido eliminada, Hasta pronto'  tipo='success' color='#005692'/>}
             <form action="" method='post' onSubmit={handleSubmit(login)} className='auth__form' autoCorrect='off'>
                 {/* campo para el email */}
                 <h1 className='auth__title'>Iniciar Sesión</h1>
@@ -92,7 +94,11 @@ const Login = () => {
 
                 <button className='auth__btn' type='submit'>Iniciar Sesión</button>
                 <div className='auth__links'>
-                    <p>¿No tienes Cuenta? <a href="/register">Crear Cuenta</a></p>
+                    <div>
+                        <p>¿No tienes Cuenta? <NavLink to="/register">Crear Cuenta</NavLink></p>
+                        <p>Olvidaste tu contraseña ? <NavLink to='/reset-password'>resetear contraseña</NavLink></p>
+                    </div>
+                
                     <div className='auth__google'>
                         <GoogleLogin
                             onSuccess={async credentialResponse => {
@@ -106,6 +112,7 @@ const Login = () => {
                             useOneTap
                         />
                     </div>
+                   
                 </div>
             </form>
         </div>
