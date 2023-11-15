@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import style from "./QuestionDetail.module.css";
+import style from "./questionDetail.module.css";
 import { useEffect, useState } from "react";
 import { FlechaAbajoIcon } from "../../assets/FlechaParaAbajoIcon";
 import { FlechaParaArriba } from "../../assets/FlechaParaArribaIcon";
@@ -188,15 +188,15 @@ function QuestionView({ question, answers, deleteAnswers, deleteQuestions }) {
         {
           icon: "error",
         }
-        );
-        setEditingAnswerId(null)
-        setDisable(false)    
-      })
-      
-}
+      );
+      setEditingAnswerId(null)
+      setDisable(false)
+    })
+
+  }
   const handleSubmitEditComment = (id) => {
     setDisable(true)
-    dispatch(updateAnswerComment(id, { thread: editingComment})).then(() => {
+    dispatch(updateAnswerComment(id, { thread: editingComment })).then(() => {
       dispatch(getQuestionDetail(question.id))
       swal("Tu comentario ha sido editada con exito!", {
         icon: "success",
@@ -210,40 +210,40 @@ function QuestionView({ question, answers, deleteAnswers, deleteQuestions }) {
         {
           icon: "error",
         }
-        );
-        setEditingCommentId(null)
-        setDisable(false)    
-      })
-      
-}
-const deleteComment = (id) => {
+      );
+      setEditingCommentId(null)
+      setDisable(false)
+    })
 
-  swal({
-    title: "¿Estás seguro quse sea eliminar está pregunta?",
-    text: "Una vez eliminada por puede ser recuperada!",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-  }).then((willDelete) => {
-    if (willDelete) {
-      dispatch(deleteAnswerComment(id))
-        .then(() => {
-          swal("Tu comentario ha sido eliminada con éxito!", {
-            icon: "success",
+  }
+  const deleteComment = (id) => {
+
+    swal({
+      title: "¿Estás seguro quse sea eliminar está pregunta?",
+      text: "Una vez eliminada por puede ser recuperada!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(deleteAnswerComment(id))
+          .then(() => {
+            swal("Tu comentario ha sido eliminada con éxito!", {
+              icon: "success",
+            });
+            dispatch(getQuestionDetail(question.id))
+          })
+          .catch(() => {
+            swal(
+              "Ha ocurrido un error. Por favor, inténtelo de nuevo o contacte al soporte.",
+              {
+                icon: "error",
+              }
+            );
           });
-          dispatch(getQuestionDetail(question.id))
-        })
-        .catch(() => {
-          swal(
-            "Ha ocurrido un error. Por favor, inténtelo de nuevo o contacte al soporte.",
-            {
-              icon: "error",
-            }
-          );
-        });
-    }
-  });
-}
+      }
+    });
+  }
   const editQuestion = (handleClose) => {
     handleClose();
     navigate(`/foro/edit/${question.id}`);
@@ -336,10 +336,10 @@ const deleteComment = (id) => {
                       <div>
                         <p>{respuesta.answer}</p>
 
-                        <div style={{display: 'flex', alignItems:'center', justifyContent:'end', marginTop:'2rem', marginBottom:'1rem'}}>
-                            <ImageAvatars name={respuesta.User?.name} image={respuesta.User?.profile_picture}/>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'end', marginTop: '2rem', marginBottom: '1rem' }}>
+                          <ImageAvatars name={respuesta.User?.name} image={respuesta.User?.profile_picture} />
                           <h4>- {date.toLocaleString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })}</h4>
-                          </div></div>
+                        </div></div>
 
                   }
 
@@ -357,44 +357,44 @@ const deleteComment = (id) => {
                       console.log(el.User);
                       return (
                         <div key={el.id} className={style.containComments}>
-                        {
-                           editingCommentId === el.id ?
-                            (
-                              <div className={style.editAnwer}>
-                                <input type="text" value={editingComment} onChange={handleCommentEdit} />
-                                {
-                                  disable
-                                    ?
-                                    <button disabled
-                                      className={style.buttonDisable}>Guardar</button>
-                                    :
-                                    <button onClick={() => handleSubmitEditComment(el.id)}>Guardar</button>
-                                }
-                              </div>
-                            )
+                          {
+                            editingCommentId === el.id ?
+                              (
+                                <div className={style.editAnwer}>
+                                  <input type="text" value={editingComment} onChange={handleCommentEdit} />
+                                  {
+                                    disable
+                                      ?
+                                      <button disabled
+                                        className={style.buttonDisable}>Guardar</button>
+                                      :
+                                      <button onClick={() => handleSubmitEditComment(el.id)}>Guardar</button>
+                                  }
+                                </div>
+                              )
 
-                            :
-                             ( 
-                            <div className={style.comments}>
-                              <div style={{display: 'flex', alignItems:'center'}}>
-                                <ImageAvatars name={el.User?.name} image={el.User?.profile_picture}/>
-                              <h4>- {date.toLocaleString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })}</h4>
-                              </div>
-                              <p>{el.thread}</p>
-                              </div>
-                             )
-                             
-                             
-                            } 
-                            {
-                      userId === el.userId &&
-                      
-                      <div className={style.edit}>
-                        <a onClick={() => {deleteComment(el.id)}}>Eliminar comentario<MaterialSymbolsDelete/></a>
-                        <a onClick={() => {handleEditComment(el.id, el.thread)}}>Editar comentario <MaterialSymbolsEdit/></a>
-                      </div>  
-                      }
-                      </div>
+                              :
+                              (
+                                <div className={style.comments}>
+                                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <ImageAvatars name={el.User?.name} image={el.User?.profile_picture} />
+                                    <h4>- {date.toLocaleString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })}</h4>
+                                  </div>
+                                  <p>{el.thread}</p>
+                                </div>
+                              )
+
+
+                          }
+                          {
+                            userId === el.userId &&
+
+                            <div className={style.edit}>
+                              <a onClick={() => { deleteComment(el.id) }}>Eliminar comentario<MaterialSymbolsDelete /></a>
+                              <a onClick={() => { handleEditComment(el.id, el.thread) }}>Editar comentario <MaterialSymbolsEdit /></a>
+                            </div>
+                          }
+                        </div>
                       );
                     })}
 
@@ -409,7 +409,7 @@ const deleteComment = (id) => {
                       Añadir comentario
                       <FlechaParaArriba />
                     </a>
-                    )}
+                  )}
 
                   {view[index] && (
                     <div className={style.comment}>
