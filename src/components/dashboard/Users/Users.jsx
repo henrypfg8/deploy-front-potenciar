@@ -1,28 +1,28 @@
-import {useEffect,} from 'react'
+import { useEffect, } from 'react'
 
-import Styles from './users.module.css' 
-import {useDispatch, useSelector} from 'react-redux'
+import { Styles } from './users.module.css'
+import { useDispatch, useSelector } from 'react-redux'
 import { getUsers } from '../../../Redux/actions/usersActions'
-import UserCard from './userCard'
+import { UserCard } from './userCard'
 
 
 const Users = () => {
 
   const dispatch = useDispatch()
-  const {users} = useSelector(state => state.users)
-  
+  const { users } = useSelector(state => state.users)
 
-  useEffect(() =>{
+
+  useEffect(() => {
     dispatch(getUsers())
   }, [])
 
   return (
     <div className={Styles.users__container}>
-     
+
       <div className={Styles.users__flex}>
         <table className={Styles.users__table}>
           <thead className={Styles.users__head}>
-            <tr  className={Styles.users__tr}>
+            <tr className={Styles.users__tr}>
               <th></th>
               <th className={Styles.users__td}>Nombre</th>
               <th className={Styles.users__td}>Apellido</th>
@@ -36,7 +36,7 @@ const Users = () => {
           </thead>
           {users && users?.map(user => {
             return (
-              <UserCard key={user.id} user={user}/>
+              <UserCard key={user.id} user={user} />
             )
           })}
         </table>
