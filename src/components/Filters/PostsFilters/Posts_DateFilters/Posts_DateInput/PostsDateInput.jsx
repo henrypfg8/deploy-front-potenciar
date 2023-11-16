@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import { format } from "date-fns";
 //
 import DatePicker from "react-datepicker";
-import CleanDate_Icon from "../../../../../assets/CleanDate_Icon";
+import CleanDateIcon from "../../../../../assets/CleanDateIcon";
 //
 import "react-datepicker/dist/react-datepicker.css";
-import { Styles } from "./posts_DateInput.module.css";
+import { Styles } from "./postsDateInput.module.css";
 //
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,7 +15,7 @@ import {
   hideLoading,
 } from "../../../../../Redux/actions/postsActions";
 
-const Posts_DateInput = ({
+const PostsDateInput = ({
   handleFromDate,
   handleUntilDate,
   fromDate,
@@ -91,10 +91,10 @@ const Posts_DateInput = ({
       </div>
 
       <div className={Styles.DateInput__Icon}>
-        <CleanDate_Icon className={Styles.icon} onClick={handleReset} />
+        <CleanDateIcon className={Styles.icon} onClick={handleReset} />
       </div>
     </div>
   );
 };
 
-export default Posts_DateInput;
+export default PostsDateInput;
