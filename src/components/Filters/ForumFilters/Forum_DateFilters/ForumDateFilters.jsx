@@ -1,11 +1,11 @@
 import { Styles } from "./forum_DateFilters.module.css";
 //
-import Forum_DateInput from "./Forum_DateInput/Forum_DateInput";
+import ForumDateInput from "./Forum_DateInput/ForumDateInput";
 //
 import { parse } from 'date-fns'
 
 
-export default function Forum_DateFilters({
+export default function ForumDateFilters({
   fromDate,
   untilDate,
   handleFromDate,
@@ -14,7 +14,7 @@ export default function Forum_DateFilters({
   return (
     <div className={Styles.Filters__date}>
       <p>Desde:</p>
-      <Forum_DateInput
+      <ForumDateInput
         fromDate={
           fromDate !== "" ? parse(fromDate, "yyyy-MM-dd", new Date()) : null
         }
@@ -22,7 +22,7 @@ export default function Forum_DateFilters({
       />
 
       <p>Hasta:</p>
-      <Forum_DateInput
+      <ForumDateInput
         untilDate={
           untilDate !== "" ? parse(untilDate, "yyyy-MM-dd", new Date()) : null
         }
