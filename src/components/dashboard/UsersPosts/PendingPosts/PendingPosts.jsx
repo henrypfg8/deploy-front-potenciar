@@ -88,7 +88,7 @@ const PendingPosts = () => {
         try {
             const config = configureHeaders(); //configurar los headers
             const updatePromises = selectedPosts.map(post =>
-                axios.put(`https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts/${post.id}`,//actualizar el post
+                axios.put(`https://potenciar-solidario.onrender.com/posts/${post.id}`,//actualizar el post
                     { ...post, status: true }, //cambiar el estado del post
                     config)
             );
@@ -118,7 +118,7 @@ const PendingPosts = () => {
 
             const config = configureHeaders(); //configurar los headers
             const deletePromises = selectedPosts.map(post =>
-                axios.delete(`https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts/${post.id}`, config)
+                axios.delete(`https://potenciar-solidario.onrender.com/posts/${post.id}`, config)
             );
             const results = await Promise.all(deletePromises); //esperar a que todas las peticiones se completen
             // Después de que todas las peticiones se han completado

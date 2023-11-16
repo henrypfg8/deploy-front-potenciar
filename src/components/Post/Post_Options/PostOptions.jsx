@@ -31,7 +31,7 @@ export default function PostOptions({ id }) {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts/${id}`, config);
+        axios.delete(`https://potenciar-solidario.onrender.com/posts/${id}`, config);
         setTimeout(() => {
           dispatch(getPosts());
         }, 0);

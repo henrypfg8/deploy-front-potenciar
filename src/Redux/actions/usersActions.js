@@ -15,7 +15,7 @@ export const createUser = (user) => {
     try {
       const config = configureHeaders();
       const response = await axios.post(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//users",
+        "https://potenciar-solidario.onrender.com/users",
         user,
         config
       );
@@ -31,7 +31,7 @@ export const deleteUser = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.delete(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//users/${id}`,
+        `https://potenciar-solidario.onrender.com/users/${id}`,
         config
       );
       dispatch({ type: DELETE_USER, payload: response.data });
@@ -46,7 +46,7 @@ export const getUsers = () => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//users",
+        "https://potenciar-solidario.onrender.com/users",
         config
       );
       dispatch({ type: GET_USERS, payload: response.data });
@@ -61,7 +61,7 @@ export const getUserDetail = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//users/${id}`,
+        `https://potenciar-solidario.onrender.com/users/${id}`,
         config
       );
       dispatch({ type: GET_USER_DETAIL, payload: response.data });
@@ -80,7 +80,7 @@ export const updateUser = (id, updatedUserData) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//users/${id}`,
+        `https://potenciar-solidario.onrender.com/users/${id}`,
         updatedUserData,
         config
       );

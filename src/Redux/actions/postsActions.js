@@ -48,7 +48,7 @@ export const createPost = (post) => {
     try {
       const config = configureHeaders();
       const response = await axios.post(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts",
+        "https://potenciar-solidario.onrender.com/posts",
         post,
         config
       );
@@ -65,7 +65,7 @@ export const deletePost = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.delete(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts/${id}`,
+        `https://potenciar-solidario.onrender.com/posts/${id}`,
         config
       );
 
@@ -81,7 +81,7 @@ export const getPosts = () => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts",
+        "https://potenciar-solidario.onrender.com/posts",
         config
       );
       dispatch({ type: GET_POSTS, payload: response.data });
@@ -96,7 +96,7 @@ export const getPostDetail = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts/${id}`,
+        `https://potenciar-solidario.onrender.com/posts/${id}`,
         config
       );
       dispatch({ type: GET_POST_DETAIL, payload: response.data });
@@ -111,7 +111,7 @@ export const updatePost = (id, updatePostData) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts/${id}`,
+        `https://potenciar-solidario.onrender.com/posts/${id}`,
         updatePostData,
         config
       );
@@ -179,7 +179,7 @@ export const getPostsFiltered = (filters) => {
     try {
       const config = configureHeaders();
       const { data } = await axios.get(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+        `https://potenciar-solidario.onrender.com/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
         config
       );
       dispatch({
@@ -211,7 +211,7 @@ export const like = (idPublication) => {
     try {
       const config = configureHeaders();
       const response = await axios.post(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts/like`,
+        `https://potenciar-solidario.onrender.com/posts/like`,
         { idPublication },
         config
       );
@@ -227,7 +227,7 @@ export const disLike = (idPublication) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts/like`,
+        `https://potenciar-solidario.onrender.com/posts/like`,
         { idPublication },
         config
       );
@@ -244,7 +244,7 @@ export const createPostReview = (comment) => {
     try {
       const config = configureHeaders();
       const response = await axios.post(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//comment/create",
+        "https://potenciar-solidario.onrender.com/comment/create",
         comment,
         config
       );
@@ -262,7 +262,7 @@ export const deletePostReview = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.delete(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//comment/delete/${id}`,
+        `https://potenciar-solidario.onrender.com/comment/delete/${id}`,
         config
       );
       dispatch({ type: DELETE_POST_REVIEW, payload: response.data });
@@ -277,7 +277,7 @@ export const updatePostReview = (id, updatedPostReview) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//comment/${id}`,
+        `https://potenciar-solidario.onrender.com/comment/${id}`,
         updatedPostReview,
         config
       );

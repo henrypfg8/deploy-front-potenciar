@@ -37,7 +37,7 @@ export const createQuestion = (question) => {
     try {
       const config = configureHeaders();
       const response = await axios.post(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//questions",
+        "https://potenciar-solidario.onrender.com/questions",
         question,
         config
       );
@@ -55,7 +55,7 @@ export const deleteQuestion = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.delete(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//questions/${id}`,
+        `https://potenciar-solidario.onrender.com/questions/${id}`,
         config
       );
       dispatch({ type: DELETE_QUESTION, payload: response.data });
@@ -72,7 +72,7 @@ export const getQuestions = () => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//questions",
+        "https://potenciar-solidario.onrender.com/questions",
         config
       );
       dispatch({ type: GET_QUESTIONS, payload: response.data });
@@ -87,7 +87,7 @@ export const getQuestionDetail = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//questions/${id}`,
+        `https://potenciar-solidario.onrender.com/questions/${id}`,
         config
       );
       dispatch({ type: GET_QUESTION_DETAIL, payload: response.data });
@@ -108,7 +108,7 @@ export const updateQuestion = (id, updatedQuestionData) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//questions/${id}`,
+        `https://potenciar-solidario.onrender.com/questions/${id}`,
         updatedQuestionData,
         config
       );
@@ -134,7 +134,7 @@ export const getQuestionsFiltered = (filters) => {
     try {
       const config = configureHeaders();
       const { data } = await axios.get(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//questionFilters?category=${category}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+        `https://potenciar-solidario.onrender.com/questionFilters?category=${category}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
         config
       );
       dispatch({ type: GET_QUESTIONS_FILTERED, payload: data });

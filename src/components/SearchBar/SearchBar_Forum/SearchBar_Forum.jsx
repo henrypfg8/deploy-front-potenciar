@@ -39,7 +39,7 @@ export default function SearchBar_Forum() {
       let debounceTimeout = undefined;
       axios
         .get(
-          `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//questionFilters?category=${category}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+          `https://potenciar-solidario.onrender.com/questionFilters?category=${category}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
           config
         )
         .then(({ data }) => {

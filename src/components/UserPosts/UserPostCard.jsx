@@ -19,7 +19,7 @@ const UserPostCard = ({ post, setRefreshData }) => {
   }
   const handleDeleteById = async () => {
     setRefreshData(true)
-    const { data } = await axios.delete(`https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts/${post.id}`, {
+    const { data } = await axios.delete(`https://potenciar-solidario.onrender.com/posts/${post.id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }

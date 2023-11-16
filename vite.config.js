@@ -7,8 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/socket.io": {
-        target:
-          "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app/",
+        target: "https://potenciar-solidario.onrender.com",
         ws: true,
         secure: false,
         changeOrigin: true,

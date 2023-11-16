@@ -102,7 +102,7 @@ export default function PostFilters() {
       const { category, ong, fromDate, untilDate, user } = { ...filters, [name]: value };
       axios
         .get(
-          `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+          `https://potenciar-solidario.onrender.com/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
           config
         )
         .then(({ data }) => dispatch(searchPosts(data, searchValue))).then(() => dispatch(hideLoading()))
@@ -120,7 +120,7 @@ export default function PostFilters() {
       const { category, ong, untilDate, user } = { ...filters };
       axios
         .get(
-          `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+          `https://potenciar-solidario.onrender.com/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
           config
         )
         .then(({ data }) => dispatch(searchPosts(data, searchValue))).then(() => dispatch(hideLoading()));
@@ -138,7 +138,7 @@ export default function PostFilters() {
       const { category, ong, fromDate, user } = { ...filters };
       axios
         .get(
-          `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+          `https://potenciar-solidario.onrender.com/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
           config
         )
         .then(({ data }) => dispatch(searchPosts(data, searchValue))).then(() => dispatch(hideLoading()));

@@ -27,7 +27,7 @@ const ComentCard = ({ comment, i }) => {
     };
     const handleDeleteCommentById = async id => {
         setRefreshData(true)
-        const { data } = await axios.delete(`https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//comment/delete/${id}`);
+        const { data } = await axios.delete(`https://potenciar-solidario.onrender.com/comment/delete/${id}`);
         setRefreshData(false);
         setIsOpenModal(false)
         return data

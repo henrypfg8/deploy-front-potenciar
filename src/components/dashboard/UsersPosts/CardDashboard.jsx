@@ -24,7 +24,7 @@ const CardDashboard = ({ post, setRefreshData, isCheked, onCheckboxChange }) => 
 
     try {
       setRefreshData(true);
-      const { data } = await axios.put(`https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//posts/${id}`, //actualizar el post
+      const { data } = await axios.put(`https://potenciar-solidario.onrender.com/posts/${id}`, //actualizar el post
         { ...post, status: post.status === true ? false : true }, config); //cambiar el estado del post
 
       setIsChekedModal(false);

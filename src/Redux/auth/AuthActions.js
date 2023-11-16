@@ -7,7 +7,7 @@ const registerUser = (user) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//register",
+        "https://potenciar-solidario.onrender.com/register",
         user
       );
 
@@ -28,7 +28,7 @@ const getProfile = (id, token) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//users/${id}`,
+        `https://potenciar-solidario.onrender.com/users/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ const updateProfile = (id, user) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//users/${id}`,
+        `https://potenciar-solidario.onrender.com/users/${id}`,
         { ...user },
         config
       );
@@ -67,7 +67,7 @@ const deleteProfile = (id) => {
       const config = configureHeaders();
 
       const { data } = await axios.delete(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//users/${id}`,
+        `https://potenciar-solidario.onrender.com/users/${id}`,
         config
       );
       dispatch({ type: types.DELETE_PROFILE });
@@ -83,7 +83,7 @@ const loginUser = (email, password) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//login",
+        "https://potenciar-solidario.onrender.com/login",
         { email, password }
       );
       console.log(data);
@@ -104,7 +104,7 @@ const loginWithGoogleAction = (token) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//authGoogle`,
+        `https://potenciar-solidario.onrender.com/authGoogle`,
         { idToken: token.credential }
       );
       // console.log(data)

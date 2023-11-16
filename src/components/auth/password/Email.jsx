@@ -13,7 +13,7 @@ const Email = () => {
 
     const handleSendEmail = async (email) => {
         try {
-            const { data } = await axios.put('https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//forgotpassword', { email })
+            const { data } = await axios.put('https://potenciar-solidario.onrender.com/forgotpassword', { email })
 
             setErrorEmail(false);
             setSuccessEmail(true);

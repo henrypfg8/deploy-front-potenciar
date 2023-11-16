@@ -8,7 +8,7 @@ export const getOngs = () => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//ongs",
+        "https://potenciar-solidario.onrender.com/ongs",
         config
       );
       dispatch({ type: GET_ONGS, payload: response.data });

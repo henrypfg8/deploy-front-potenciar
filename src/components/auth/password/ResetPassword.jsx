@@ -20,7 +20,7 @@ const ResetPassword = () => {
 
     const verifyToken = async () => {
         try {
-            const { data } = await axios.get('https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//validateotp', {
+            const { data } = await axios.get('https://potenciar-solidario.onrender.com/validateotp', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -43,7 +43,7 @@ const ResetPassword = () => {
     // Función para actualizar la contraseña
     const handleUpdatePassword = async newPassword => {
         try {
-            const { data } = await axios.put('https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//resetpassword', { newPassword }, {
+            const { data } = await axios.put('https://potenciar-solidario.onrender.com/resetpassword', { newPassword }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

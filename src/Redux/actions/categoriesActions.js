@@ -11,7 +11,7 @@ export const getCategories = () => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//categories",
+        "https://potenciar-solidario.onrender.com/categories",
         config
       );
       dispatch({ type: GET_CATEGORIES, payload: response.data });
@@ -26,7 +26,7 @@ export const getForumCategories = () => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//forumCategories",
+        "https://potenciar-solidario.onrender.com/forumCategories",
         config
       );
       dispatch({ type: GET_FORUM_CATEGORIES, payload: response.data });

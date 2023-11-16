@@ -17,7 +17,7 @@ export const getAnswers = () => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//answers",
+        "https://potenciar-solidario.onrender.com/answers",
         config
       );
 
@@ -33,7 +33,7 @@ export const createAnswer = (answer) => {
     try {
       const config = configureHeaders();
       const response = await axios.post(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//answers",
+        "https://potenciar-solidario.onrender.com/answers",
         answer,
         config
       );
@@ -51,7 +51,7 @@ export const updateAnswer = (id, answer) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//answers/${id}`,
+        `https://potenciar-solidario.onrender.com/answers/${id}`,
         answer,
         config
       );
@@ -69,7 +69,7 @@ export const deleteAnswer = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.delete(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//answers/${id}`,
+        `https://potenciar-solidario.onrender.com/answers/${id}`,
         config
       );
       dispatch({ type: DELETE_ANSWER, payload: response.data });
@@ -87,7 +87,7 @@ export const createAnswerComment = (comment) => {
       console.log(comment);
       const config = configureHeaders();
       const response = await axios.post(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//answers/comments",
+        "https://potenciar-solidario.onrender.com/answers/comments",
         comment,
         config
       );
@@ -103,7 +103,7 @@ export const deleteAnswerComment = (id) => {
     try {
       const config = configureHeaders();
       const response = await axios.delete(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//answers/comments/${id}`,
+        `https://potenciar-solidario.onrender.com/answers/comments/${id}`,
         config
       );
       dispatch({ type: DELETE_ANSWER_COMMENT, payload: response.data });
@@ -120,7 +120,7 @@ export const updateAnswerComment = (id, thread) => {
     try {
       const config = configureHeaders();
       const response = await axios.put(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//answers/comments/${id}`,
+        `https://potenciar-solidario.onrender.com/answers/comments/${id}`,
         thread,
         config
       );
@@ -138,7 +138,7 @@ export const getAnswerComment = () => {
     try {
       const config = configureHeaders();
       const response = await axios.get(
-        "https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//answers/comments",
+        "https://potenciar-solidario.onrender.com/answers/comments",
         config
       );
       dispatch({ type: GET_ANSWER_COMMENT, payload: response.data });

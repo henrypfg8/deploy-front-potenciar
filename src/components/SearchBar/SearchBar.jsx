@@ -40,7 +40,7 @@ export default function SearchBar() {
 
       let debounceTimeout = undefined;
       axios.get(
-        `https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+        `https://potenciar-solidario.onrender.com/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
         config
       ).then(({ data }) => {
         debounceTimeout = setTimeout(() => {

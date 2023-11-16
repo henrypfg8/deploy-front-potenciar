@@ -65,7 +65,7 @@ export default function ForumFilters() {
 
     if (searchValue !== '') {
       const { category, fromDate, untilDate, user } = { ...filters, [name]: value };
-      axios.get(`https://deploy-back-potenciar-3rzpu5z84-potenciarsolidarios-projects.vercel.app//questionFilters?category=${category}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+      axios.get(`https://potenciar-solidario.onrender.com/questionFilters?category=${category}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
         config)
         .then(({ data }) => dispatch(searchQuestions(data, searchValue)))
     }
