@@ -9,7 +9,7 @@ import { configureHeaders } from '../../../Redux/auth/configureHeaders ';
 import { updateProfile } from '../../../Redux/auth/AuthActions';
 import { useNavigate } from 'react-router-dom';
 
-const UserCard = ({ user }) => {
+function UserCard(user) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [refreshData, setRefreshData] = useState(false);
