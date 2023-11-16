@@ -1,4 +1,4 @@
-import { Styles } from "./forumFilters.module.css";
+import Styles from "./forumFilters.module.css";
 //
 import Select from "react-select";
 //

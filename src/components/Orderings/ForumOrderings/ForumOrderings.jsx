@@ -1,4 +1,4 @@
-import { Styles } from "./forumOrderings.module.css";
+import Styles from "./forumOrderings.module.css";
 //
 import Select from "react-select";
 //

@@ -1,6 +1,6 @@
 
 import { useSelector, } from 'react-redux'
-import { Styles } from './userComment.module.css'
+import Styles from './userComment.module.css'
 
 import UserComentCard from './UserComentCard'
 const UserComent = () => {

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Styles } from '../../views/UserPostsView/userPosts.module.css'
+import Styles from '../../views/UserPostsView/userPosts.module.css'
 import propTypes from 'prop-types'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Modal } from 'antd'

@@ -1,4 +1,4 @@
-import { Styles } from "./postsOrderings.module.css";
+import Styles from "./postsOrderings.module.css";
 //
 import Select from "react-select";
 //

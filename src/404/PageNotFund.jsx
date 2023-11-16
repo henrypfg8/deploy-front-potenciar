@@ -1,4 +1,4 @@
-import { Styles } from './pageNotFound.module.css'
+import Styles from './pageNotFound.module.css'
 import { NavLink, useLocation } from 'react-router-dom'
 import Spinner from '../components/auth/spinner/Spinner';
 

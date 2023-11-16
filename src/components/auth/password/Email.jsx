@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useForm, } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
-import { Styles } from './reset.module.css'
+import Styles from './reset.module.css'
 
 const Email = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();

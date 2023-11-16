@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Styles } from './userQuestion.module.css' // Reemplaza con la ubicación real de tus estilos
+import Styles from './userQuestion.module.css' // Reemplaza con la ubicación real de tus estilos
 import { Modal } from 'antd'
 import { useDispatch } from 'react-redux'
 import { deleteQuestion } from '../../../Redux/actions/questionsActions';

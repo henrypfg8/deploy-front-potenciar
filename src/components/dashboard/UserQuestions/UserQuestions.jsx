@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getQuestions } from '../../../Redux/actions/questionsActions';
 import UserQuetionCard from './UserQuetionCard';
-import { Styles } from './userQuestion.module.css'
+import Styles from './userQuestion.module.css'
 
 const UserQuestions = () => {
   const dispatch = useDispatch()

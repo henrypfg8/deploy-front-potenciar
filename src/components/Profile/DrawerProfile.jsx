@@ -4,7 +4,7 @@ import { NavLink, useLocation, } from 'react-router-dom';
 import { logoutAction } from '../../Redux/auth/AuthActions';
 import { useSelector, useDispatch } from 'react-redux'
 import { MenuOutlined } from '@ant-design/icons';
-import { Styles } from './profile.module.css';
+import Styles from './profile.module.css';
 import { getProfile } from '../../Redux/auth/AuthActions';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode'

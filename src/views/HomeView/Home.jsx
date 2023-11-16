@@ -1,4 +1,4 @@
-import { Styles } from "./home.module.css";
+import Styles from "./home.module.css";
 //
 import Posts from "../../components/Posts/Posts";
 import LeftBar from "../../components/LeftBar/LeftBar";

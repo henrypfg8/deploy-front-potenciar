@@ -1,4 +1,4 @@
-import { Styles } from "./post.module.css";
+import Styles from "./post.module.css";
 //
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

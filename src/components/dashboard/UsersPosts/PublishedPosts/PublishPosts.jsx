@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getPosts } from "../../../../Redux/actions/postsActions"
 import { useSelector, useDispatch } from "react-redux";
 import CardDashboard from "../CardDashboard";
-import { Styles } from './published.module.css'
+import Styles from './published.module.css'
 import axios from 'axios';
 import { configureHeaders } from '../../../../Redux/auth/configureHeaders ';
 import { Modal } from 'antd';

@@ -1,4 +1,4 @@
-import { Styles } from "./forumDateInput.module.css";
+import Styles from "./forumDateInput.module.css";
 import "react-datepicker/dist/react-datepicker.css";
 //
 import { format } from "date-fns";

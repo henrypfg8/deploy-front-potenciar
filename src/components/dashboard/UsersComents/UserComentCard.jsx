@@ -1,7 +1,7 @@
 import React from 'react'
 import proptypes from 'prop-types'
 import ComentCard from './ComentCard'
-import { Styles } from './userComment.module.css';
+import Styles from './userComment.module.css';
 
 const UserComentCard = ({ post }) => {
 

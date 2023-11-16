@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Styles } from './userComment.module.css'
+import Styles from './userComment.module.css'
 import axios from 'axios'
 import { Modal } from 'antd'
 import { useDispatch } from 'react-redux';

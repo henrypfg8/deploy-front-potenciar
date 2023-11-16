@@ -1,7 +1,7 @@
 ///import { useState } from 'react'
 import { Avatar } from 'antd';
 import { NavLink, } from 'react-router-dom'
-import { Styles } from './sidebar.module.css';
+import Styles from './sidebar.module.css';
 import { getProfile } from '../../../Redux/auth/AuthActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImageCloudinary } from '../../Form/cloudinary';

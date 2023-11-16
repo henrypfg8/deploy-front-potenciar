@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import proptypes from 'prop-types'
-import { Styles } from './users.module.css';
+import Styles from './users.module.css';
 import { Modal, Avatar } from 'antd'
 import { useEffect, useState } from 'react';
 import { getUsers, deleteUser } from '../../../Redux/actions/usersActions';

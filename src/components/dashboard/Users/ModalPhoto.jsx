@@ -1,6 +1,6 @@
 
 import proptypes from 'prop-types'
-import { Styles } from './users.module.css';
+import Styles from './users.module.css';
 import { } from 'antd'
 
 

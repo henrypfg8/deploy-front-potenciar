@@ -1,4 +1,4 @@
-import { Styles } from "./posts.module.css";
+import Styles from "./posts.module.css";
 //
 import Post from "../Post/Post";
 //

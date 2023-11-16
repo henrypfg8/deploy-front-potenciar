@@ -1,4 +1,4 @@
-import { Styles } from "./postsDateFilters.module.css";
+import Styles from "./postsDateFilters.module.css";
 //
 import PostsDateInput from "./Posts_DateInput/PostsDateInput";
 import { parse } from "date-fns";

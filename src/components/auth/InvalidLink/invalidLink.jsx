@@ -1,4 +1,4 @@
-import { Styles } from './invalidLink.module.css'
+import Styles from './invalidLink.module.css'
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../spinner/Spinner';
 

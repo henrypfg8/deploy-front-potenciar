@@ -1,4 +1,4 @@
-import { Styles } from "./leftBar.module.css";
+import Styles from "./leftBar.module.css";
 //
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";

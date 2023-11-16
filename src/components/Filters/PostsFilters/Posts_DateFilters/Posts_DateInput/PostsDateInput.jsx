@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import CleanDateIcon from "../../../../../assets/CleanDateIcon";
 //
 import "react-datepicker/dist/react-datepicker.css";
-import { Styles } from "./postsDateInput.module.css";
+import Styles from "./postsDateInput.module.css";
 //
 import { useDispatch, useSelector } from "react-redux";
 import {

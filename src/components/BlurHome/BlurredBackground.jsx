@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Styles } from "./blurredBackground.module.css";
+import Styles from "./blurredBackground.module.css";
 
 export default function BlurredBackground() {
   return (

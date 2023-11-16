@@ -5,7 +5,7 @@ import { getProfile } from '../../Redux/auth/AuthActions';
 import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import UserPostCard from '../../components/UserPosts/UserPostCard';
-import { Styles } from './userPosts.module.css'
+import Styles from './userPosts.module.css'
 
 
 const UserPostsView = () => {
