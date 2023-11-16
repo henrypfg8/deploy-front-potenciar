@@ -1,7 +1,7 @@
 import { Styles } from "./post_Options.module.css";
 //
 import DeleteIcon from "../../../assets/DeleteIcon";
-import { ModifyPost_Icon } from "../../../assets/PostOptions_Icons";
+import { ModifyPost_Icon } from "../../../assets/PostOptionsIcons";
 //
 import Swal from "sweetalert2";
 //

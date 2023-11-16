@@ -4,7 +4,7 @@ import LeftBar from '../../components/LeftBar/LeftBar';
 import style from './foro.module.css';
 import { NavLink } from "react-router-dom";
 import { Oval } from 'react-loader-spinner';
-import { FluentMdl2QandA } from '../../assets/noQuestion_Icon';
+import FluentMdl2QandA from '../../assets/NoQuestionIcon';
 // eslint-disable-next-line react/prop-types
 function ForumView({ questions, loading }) {
     let [getQuestion, setGetQuestion] = useState([]);

@@ -6,12 +6,11 @@ import { useState, useEffect } from "react";
 //
 import CalendarIcon from "../../assets/CalendarIcon";
 import { Like, LikeActive, Comment } from "../../assets/SocialIcons/";
-import { PostOptions_Icon } from "../../assets/PostOptions_Icons";
-import Post_Options from "./Post_Options/Post_Options";
+import { PostOptionsIcon } from "../../assets/PostOptionsIcons";
+import PostOptions from "./Post_Options/Post_Options";
 import { like, disLike } from "../../Redux/actions/postsActions";
 
 import { configureHeaders } from "../../Redux/auth/configureHeaders ";
-import axios from "axios";
 import { jwtDecode } from 'jwt-decode';
 
 //////////////////////////////

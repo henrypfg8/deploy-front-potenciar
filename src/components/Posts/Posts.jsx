@@ -3,11 +3,10 @@ import { Styles } from "./posts.module.css";
 import Post from "../Post/Post";
 //
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
 //
 import { Oval } from "react-loader-spinner";
 //
-import NoPosts_Icon from "../../assets/NoPosts_Icon";
+import NoPostsIcon from "../../assets/NoPostsIcon";
 
 export default function Posts() {
   const loading = useSelector((state) => state.posts.loading);
@@ -71,7 +70,7 @@ export default function Posts() {
 
       {(posts?.length === 0 && !loading) || (!posts && !loading) ? (
         <div className={Styles.Posts__NoPosts}>
-          <NoPosts_Icon className={Styles.NoPosts__icon} />
+          <NoPostsIcon className={Styles.NoPosts__icon} />
           <h3 className={Styles.NoPosts__Text}>
             No se encontraron publicaciones.
           </h3>
