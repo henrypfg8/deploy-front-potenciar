@@ -1,4 +1,4 @@
-import Styles from "./PostOptions.module.css";
+import Styles from "./postOptions.module.css";
 //
 import DeleteIcon from "../../../assets/DeleteIcon";
 import { ModifyPostIcon } from "../../../assets/PostOptionsIcons";
