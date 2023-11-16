@@ -1,7 +1,7 @@
-import Styles from "./post_Options.module.css";
+import Styles from "./PostOptions.module.css";
 //
 import DeleteIcon from "../../../assets/DeleteIcon";
-import { ModifyPost_Icon } from "../../../assets/PostOptionsIcons";
+import { ModifyPostIcon } from "../../../assets/PostOptionsIcons";
 //
 import Swal from "sweetalert2";
 //
@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux'
 import { getPosts } from "../../../Redux/actions/postsActions";
 
 
-export default function Post_Options({ id }) {
+export default function PostOptions({ id }) {
   const config = configureHeaders();
   const dispatch = useDispatch()
   //
@@ -57,7 +57,7 @@ export default function Post_Options({ id }) {
       </div>
       <div className={Styles.Options__option}>
         <p>Modificar</p>
-        <ModifyPost_Icon className={Styles.Option_icon} />
+        <ModifyPostIcon className={Styles.Option_icon} />
       </div>
     </div>
   );

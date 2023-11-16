@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import CalendarIcon from "../../assets/CalendarIcon";
 import { Like, LikeActive, Comment } from "../../assets/SocialIcons/";
 import { PostOptionsIcon } from "../../assets/PostOptionsIcons";
-import PostOptions from "./Post_Options/Post_Options";
+import PostOptions from "./Post_Options/PostOptions";
 import { like, disLike } from "../../Redux/actions/postsActions";
 
 import { configureHeaders } from "../../Redux/auth/configureHeaders ";
@@ -111,7 +111,7 @@ const Post = (props) => {
           onClick={postOptionsHandler}
         >
           <PostOptions_Icon className={Styles.BottomBar__optionsIcon} />
-          {isOptionsOpen && <Post_Options id={id} />}
+          {isOptionsOpen && <PostOptions id={id} />}
         </div> */}
       </div>
     </Link>
