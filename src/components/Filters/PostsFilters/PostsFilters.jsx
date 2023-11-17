@@ -14,7 +14,7 @@ import {
   setSelectedOptions
 } from "../../../Redux/actions/postsActions";
 //
-import PostsDateFilters from "./Posts_DateFilters/PostsDateFilters";
+import PostsDateFilters from "./PostsDateFilters/PostsDateFilters";
 //
 import { format } from "date-fns";
 import { configureHeaders } from "../../../Redux/auth/configureHeaders ";

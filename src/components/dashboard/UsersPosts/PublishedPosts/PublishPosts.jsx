@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { getPosts } from "../../../../Redux/actions/postsActions"
 import { useSelector, useDispatch } from "react-redux";
 import CardDashboard from "../CardDashboard";
@@ -12,33 +12,49 @@ const PublishPosts = () => {
   const dispatch = useDispatch();
   const { posts } = useSelector(state => state.posts);
 
-
+  //Estados para hacer busquedas
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-
+  //guardar los posts seleccionados para publicar
   const [selectedPosts, setSelectedPosts] = useState([]);
   const [refreshData, setRefreshData] = useState(false);
 
-  //guardar los posts seleccionados para publicar
-
+  //Estados para mostrar el modal
   const [isModalOpenLeftPublish, setIsModalOpenLeftPublish] = useState(false);
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
+  //orden por fecha
+  const [sortOrder, setSortOrder] = useState('asc');
 
-
+  //filtrar los posts aprobados
   const postsApproved = posts.filter(post => post.status === '1' || post.status === true);
-  // Filtrar el array basado en el término de búsqueda si isSearching es true
-  const filteredResults = isSearching
-    ? postsApproved.filter((item) =>
-      // Reemplaza 'item.name' con la propiedad o valor que deseas buscar
-      item.title.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    : postsApproved;
 
+  // Filtrar el array basado en el término de búsqueda si isSearching es true
+  const filteredAndSortedResults = useMemo(() => {
+    let results = isSearching
+      ? postsApproved.filter(item =>
+        item.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      : postsApproved;
+
+    // Ordenamiento basado en sortOrder
+    if (sortOrder === 'asc') {
+      results.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate));
+    } else if (sortOrder === 'desc') {
+      results.sort((a, b) => new Date(b.creationDate) - new Date(a.creationDate));
+    }
+
+    return results;
+  }, [postsApproved, isSearching, searchTerm, sortOrder]);
+  const onChangeFilterDate = (e) => {
+    // Actualiza el estado 'sortOrder' con el valor seleccionado
+    setSortOrder(e.target.value);
+  };
 
   useEffect(() => {
     dispatch(getPosts())
   }, [refreshData])
 
+  //Funcion para escuchar el cambio de checkbox
   const handleCheckboxChange = (item) => {
     if (selectedPosts.includes(item)) {
       setSelectedPosts(selectedPosts.filter(i => i !== item));
@@ -46,6 +62,7 @@ const PublishPosts = () => {
       setSelectedPosts([...selectedPosts, item]);
     }
   }
+  //Funcion selecionar los posts
   const handleSelectAllPost = () => {
     if (selectedPosts.length === postsApproved.length) {
       setSelectedPosts([]);
@@ -64,15 +81,12 @@ const PublishPosts = () => {
   const handleClose = () => {
     setIsModalOpenLeftPublish(false);
   };
-
-  const handlePulishPosts = async () => {//publicar los posts seleccionados
+  //publicar los posts seleccionados
+  const handlePulishPosts = async () => {
     if (selectedPosts.length === 0) {
 
       return;
     }
-
-
-
     try {
       setRefreshData(true);
       const config = configureHeaders(); //configurar los headers
@@ -88,20 +102,21 @@ const PublishPosts = () => {
       // Después de que todas las peticiones se han completado
       setSelectedPosts([]);
       setRefreshData(false);
-      console.log(results);
     } catch (error) {
       console.log(error.response);
       // Manejar el error (por ejemplo, si alguna de las peticiones falla)
     }
   };
-  //Areas de modales para eliminar
 
+  //Areas de modales para eliminar
   const showModalDelete = () => {
     setIsModalOpenDelete(true);
   }
   const handleCloseDelete = () => {
     setIsModalOpenDelete(false);
   };
+
+  //Funcion para borrar multiples posts
   const handleDeletePosts = async () => {
     try {
 
@@ -114,26 +129,36 @@ const PublishPosts = () => {
       setIsModalOpenDelete(false)
       setSelectedPosts([]);
       setRefreshData(false);
-      console.log(results);
+      return results
     }
     catch (error) {
-      console.log(error.response)
+      return (error.response)
     }
   }
   return (
     <>
       <div className={Styles.dashboard}>
+        {/* Si no hay posts de mostrará un mensaje */}
         {postsApproved.length === 0 && <p className={Styles.dashboard__post}>No hay publicaciones </p>}
         {postsApproved.length > 0 && (
           <div>
             <p className={Styles.dashboard__post}>Hay {postsApproved.length} publicaciones</p>
             <div className={Styles.button__flexDiv}>
               <button className={Styles.button__selected} onClick={handleSelectAllPost}>  {selectedPosts.length === postsApproved.length ? 'Deseleccionar Todo' : 'Seleccionar Todo'}</button>
+              <select style={{
+                border: 'solid 1px #ddd',
+                borderRadius: '5px'
+              }} name="date" id="date" onChange={onChangeFilterDate}>
+
+                <option value="">Ordenar por fecha</option>
+                <option value="asc">Más Antiguo</option>
+                <option value="desc">Más Nuevo</option>
+              </select>
             </div>
           </div>
         )}
 
-
+        {/* Componente para la busqueda */}
         <SearchDashBoard
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -144,22 +169,24 @@ const PublishPosts = () => {
         <div className={Styles.dashboard__div}>
 
           <div className={Styles.dashboard__divCards}>
-
-            {filteredResults.length > 0 ? (
-              filteredResults.map(post => (
+            {/* mapear los posts filtrados */}
+            {filteredAndSortedResults.length > 0 ? (
+              filteredAndSortedResults.map(post => (
                 <CardDashboard
                   key={post.id}
                   post={post}
                   setRefreshData={setRefreshData}
-                  onCheckboxChange={handleCheckboxChange} />
+                  onCheckboxChange={handleCheckboxChange}
+                  isCheked={selectedPosts.includes(post)} />
               ))
-            ) : (
+            ) : ( // Si no hay resultados se mostrará este componente
               isSearching &&
               <div className={Styles.div_NoResults}>
                 <p className={Styles.title_NoResults}>No hay resultados</p>
               </div>
             )}
           </div>
+          {/* Si hay un elemento seleccionado en el checkbox, entonces se mostrará dos botones */}
           {selectedPosts.length > 0 && (
             <div className={Styles.dashboard__buttons}>
               <button className={Styles.dashboard__btn}
@@ -171,6 +198,7 @@ const PublishPosts = () => {
             </div>
           )}
           <div>
+            {/* Modal de confirmacion para publicar un post*/}
             <Modal
               title={`Deseas dejar de publicar ${selectedPosts.length} posts`}
               open={isModalOpenLeftPublish}
@@ -183,7 +211,9 @@ const PublishPosts = () => {
               }}
 
             />
+            {/* Modal de confirmacion para elminar un post */}
             <Modal
+
               title={`Deseas eliminar ${selectedPosts.length} posts?`}
               open={isModalOpenDelete}
               onCancel={handleCloseDelete}

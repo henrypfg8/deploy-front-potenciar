@@ -1,6 +1,6 @@
 import Styles from "./postsDateFilters.module.css";
 //
-import PostsDateInput from "./Posts_DateInput/PostsDateInput";
+import PostsDateInput from "./PostsDateInput/PostsDateInput";
 import { parse } from "date-fns";
 
 export default function Posts_DateFilters({

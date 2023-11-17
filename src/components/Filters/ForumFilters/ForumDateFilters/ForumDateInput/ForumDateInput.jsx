@@ -3,14 +3,14 @@ import "react-datepicker/dist/react-datepicker.css";
 //
 import { format } from "date-fns";
 import DatePicker from "react-datepicker";
-import CleanDateIcon from "../../../../../assets/CleanDateIcon";
+import CleanDate_Icon from "../../../../../assets/CleanDateIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from 'react';
 //
 import { getQuestionsFiltered, setQuestionsFilters } from "../../../../../Redux/actions/questionsActions";
 
 
-export default function ForumDateInput({ fromDate, untilDate, handleFromDate, handleUntilDate }) {
+export default function ({ fromDate, untilDate, handleFromDate, handleUntilDate}) {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -50,12 +50,12 @@ export default function ForumDateInput({ fromDate, untilDate, handleFromDate, ha
         {fromDate
           ? format(fromDate, "dd-MM-yyyy")
           : untilDate
-            ? format(untilDate, "dd-MM-yyyy")
-            : "Seleccione una fecha"}
+          ? format(untilDate, "dd-MM-yyyy")
+          : "Seleccione una fecha"}
       </button>
 
       <div className={Styles.DateInput__Icon}>
-        <CleanDateIcon className={Styles.icon} onClick={handleReset} />
+        <CleanDate_Icon className={Styles.icon} onClick={handleReset} />
       </div>
 
       <div className={Styles.DateInput__datePicker}>

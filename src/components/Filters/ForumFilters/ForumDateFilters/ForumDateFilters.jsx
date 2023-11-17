@@ -1,11 +1,11 @@
 import Styles from "./forumDateFilters.module.css";
 //
-import ForumDateInput from "./Forum_DateInput/ForumDateInput";
+import ForumDateInput from "./ForumDateInput/ForumDateInput";
 //
 import { parse } from 'date-fns'
 
 
-export default function ForumDateFilters({
+export default function Forum_DateFilters({
   fromDate,
   untilDate,
   handleFromDate,

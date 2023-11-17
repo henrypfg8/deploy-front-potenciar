@@ -21,7 +21,6 @@ const UserQuetionCard = ({ question, setRefreshData }) => {
         setModalAsks(false);
       }
     };
-
     // Añadir el listener para el clic
     document.addEventListener("mousedown", handleClickOutside);
 
@@ -94,6 +93,7 @@ const UserQuetionCard = ({ question, setRefreshData }) => {
           Ver respuestas
 
         </button>
+        {/* Mostrar el modal */}
         {modalAsks && (
           <div ref={modalRef} className={Styles.question__asks}>
             {question.Answers && question.Answers.length === 0 && <p className={Styles.answer__no}>Aún no hay respuestas</p>}

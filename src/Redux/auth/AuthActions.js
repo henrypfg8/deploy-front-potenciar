@@ -84,9 +84,11 @@ const loginUser = (email, password) => {
     try {
       const { data } = await axios.post(
         "https://potenciar-solidario.onrender.com/login",
-        { email, password }
+        {
+          email,
+          password,
+        }
       );
-      console.log(data);
       dispatch({ type: types.LOGIN, payload: data });
       return Promise.resolve(data);
     } catch (error) {
@@ -105,9 +107,10 @@ const loginWithGoogleAction = (token) => {
     try {
       const { data } = await axios.post(
         `https://potenciar-solidario.onrender.com/authGoogle`,
-        { idToken: token.credential }
+        {
+          idToken: token.credential,
+        }
       );
-      // console.log(data)
       dispatch({ type: types.LOGIN_WITH_GOOGLE, payload: data });
       return Promise.resolve(data);
     } catch (error) {

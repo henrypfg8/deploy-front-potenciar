@@ -26,7 +26,7 @@ const Form = ({ setPost, post }) => {
     const token = localStorage.getItem('token');
 
     const navigate = useNavigate();
-    //Obtener el id de la publicación
+    //Obtener el id de la publicación, por los params
     const { id } = useParams();
     //Obtener la fecha actual
     const fecha = new Date().toLocaleDateString()
@@ -45,6 +45,7 @@ const Form = ({ setPost, post }) => {
     // Array de timeouts para limpiarlos en el useEffect
     const timeouts = [];
 
+    //UseEffect para verificar esta autenticado
     useEffect(() => {
         if (!token || !isAuthenticated) {
             navigate('/login')
@@ -52,7 +53,6 @@ const Form = ({ setPost, post }) => {
         else {
             const decoded = jwtDecode(token);
             dispatch(getProfile(decoded.id, token)).then(() => {
-                //console.log(userProfile)
             })
                 .catch(error => {
                     console.log(error.response)
@@ -98,10 +98,9 @@ const Form = ({ setPost, post }) => {
                         url: data.url,
                     })
 
-
                 }
                 catch (error) {
-                    console.log(error.response)
+                    return (error.response)
                 }
                 return
             }
@@ -122,7 +121,7 @@ const Form = ({ setPost, post }) => {
 
     // funcion para Enviar el formulario de la publicación
     const onSubmit = async data => {
-
+        //Cargar la image de cludinary
         const urlImage = await uploadImageCloudinary(imgFile);
 
         const updatedPost = {
@@ -130,14 +129,15 @@ const Form = ({ setPost, post }) => {
             image: urlImage,  //agregar la url de la imagen
             creationDate: fechaConvertida,
             organization: userProfile.organization,
+            status: false
         };
         if (id) { // Si hay un id, actualizar la publicación
             await handleUpdate(id, updatedPost)
                 .then(() => {
-
+                    //Cambiar los estados
                     setSuccessUpdate(true);
                     setErrorPost(false);
-
+                    //crear una funcion para limpiar el los estados
                     const successTimeout = setTimeout(() => {
                         navigate('/profile/posts');
                         setSuccessUpdate(false);
@@ -145,13 +145,14 @@ const Form = ({ setPost, post }) => {
                     timeouts.push(successTimeout);
                 })
                 .catch((error) => {
-                    console.log(error.response.data)
+                    //Cambiar los estados
                     setErrorPost(true);
                     setSuccessUpdate(false);
                     const errorTimeout = setTimeout(() => {
                         setErrorPost(false);
                     }, 3000);
                     timeouts.push(errorTimeout);
+                    return error
                 })
 
         }
@@ -159,26 +160,27 @@ const Form = ({ setPost, post }) => {
 
             dispatch(createPost(updatedPost))
                 .then(() => {
-
+                    //Cambiar los estados
                     setSuccess(true);
                     setErrorPost(false);
-
+                    //funcion para limpiar los estados
                     const successTimeout = setTimeout(() => {
                         navigate('/');
                         setSuccess(false);
                     }, 3000);
+                    //Agregar
                     timeouts.push(successTimeout);
 
-
                 }).catch((error) => {
-                    console.log(error.response.data.message)
-                    setErrorPost(true);
+                    //Cambiar los estados
+                    setErrorPost(true)
                     setSuccess(false);
-
+                    //Limpiar los estados de error
                     const errorTimeout = setTimeout(() => {
                         setErrorPost(false);
                     }, 3000);
                     timeouts.push(errorTimeout);
+                    return (error.response.data.message);
                 })
         }
 
@@ -242,18 +244,22 @@ const Form = ({ setPost, post }) => {
             {successUpdate && <Swiper frase='Se ha actualizado la publicación exitosamente' color='#005692' tipo='success' />} {/* Si se actualiza correctamente mostrar el mensaje */}
             <form action="" method='post' className='form' onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
                 <div className='form__field'>
+                    {/* Campo para el titulo */}
                     <label htmlFor="title">Titulo</label>
+                    {/* Tipos de error */}
                     {errors?.title?.type === 'maxLength' && <p className='form__alert'>El titulo No debe tener más de 50 caracteres</p>}
                     {errors?.title?.type === 'minLength' && <p className='form__alert'>El titulo debe tener al menos 5 caracteres</p>}
                     {errors?.title?.type === 'required' && <p className='form__alert'>El titulo es obligatorio</p>}
                     <input type="text" id='title' placeholder='titulo'
                         defaultValue={valuesPost.title}
+                        // Hacer un register para guardar los valores del input
                         {...register('title', { required: true, minLength: 5, maxLength: 50 })}
                     />
                 </div>
-                {/* End form field */}
+                {/* Campo para la categoria */}
                 <div className='form__field'>
                     <label htmlFor="category">Categoria</label>
+                    {/* Tipos de error */}
                     {errors.category && <p className='form__alert'>La categoria es obligatoria</p>}
                     <Controller
                         defaultValue={valuesPost.category}
@@ -261,7 +267,6 @@ const Form = ({ setPost, post }) => {
                         control={control}
                         rules={{ required: 'La categoria es obligatoria' }} // Reglas de validación con mensaje de error
                         render={({ field, fieldState: { error } }) => (
-                            //console.log(error),
                             <Select
                                 {...field}
                                 name='category'
@@ -269,6 +274,7 @@ const Form = ({ setPost, post }) => {
                                 onChange={(e) => {
                                     // Actualiza el valor del formulario
                                     field.onChange(e.value);
+                                    // Hacer un register para guardar los valores del input
                                     setPost({ ...post, category: e.value })
                                 }}
                                 defaultValue={valuesPost.category}
@@ -278,21 +284,24 @@ const Form = ({ setPost, post }) => {
                         )}
                     />
                 </div>
-                {/* End form field */}
+                {/* Campo para la descripcion */}
 
                 <div className='form__field'>
                     <label htmlFor="description">Descripcion</label>
+                    {/* Tipos de error */}
                     {errors?.description?.type === 'maxLength' && <p className='form__alert'>La descripcion No debe tener más de 1000 caracteres</p>}
                     {errors?.description?.type === 'minLength' && <p className='form__alert'>La descripcion debe tener al menos 20 caracteres</p>}
                     {errors?.description?.type === 'required' && <p className='form__alert'>La descripcion es obligatorio</p>}
                     <textarea id="description" cols="30" rows="10" placeholder='descripcion'
                         defaultValue={valuesPost.description}
+                        // Hacer un register para guardar los valores del input
                         {...register('description', { required: true, minLength: 20, maxLength: 1000 })}
                     ></textarea>
                 </div>
-                {/* End form field */}
+                {/* Campo para la fecha de inicio */}
                 <div className='form__field'>
                     <label htmlFor="startDate">Fecha de inicio </label>
+                    {/* Tipos de error */}
                     {errors?.startDate?.type === 'required' && <p className='form__alert'>La fecha de inicio es obligatorio</p>}
                     {errors?.startDate?.type === 'min' && <p className='form__alert'>La fecha de inicio debe ser mayor a la fecha actual</p>}
                     {errors?.startDate?.type === 'pattern' && <p className='form__alert'>Debe ser una fecha valida</p>}
@@ -300,6 +309,7 @@ const Form = ({ setPost, post }) => {
                     <input type="date" id='startDate' placeholder='fecha'
                         name='startDate'
                         defaultValue={post.startDate}
+                        // Hacer un register para guardar los valores del input
                         {...register('startDate', {
                             required: true, min: fechaConvertida, pattern: {
                                 value: /^\d{4}-\d{2}-\d{2}$/,
@@ -308,23 +318,25 @@ const Form = ({ setPost, post }) => {
                         })}
                     />
                 </div>
-                {/* End form field */}
+                {/* Campo para la fecha de fin */}
                 <div className='form__field'>
                     <label htmlFor="endDate">Fecha de fin </label>
+                    {/* Tipos de error */}
                     {errors?.endDate?.type === 'required' && <p className='form__alert'>La fecha de fin es obligatorio</p>}
                     {errors?.endDate?.type === 'min' && <p className='form__alert'>La fecha de fin debe ser mayor a la fecha actual</p>}
                     <input type="date" id='endDate' placeholder='fecha'
                         defaultValue={post.endDate}
+                        // Hacer un register para guardar los valores del input
                         {...register('endDate', {
                             required: true, min: fechaConvertida, pattern: {
-                                value: /^\d{4}-\d{2}-\d{2}$/,
+                                value: /^\d{4}-\d{2}-\d{2}$/, //regex de validacion
                                 message: 'Debe ser una fecha valida'
                             }
                         })}
                     />
                 </div>
 
-                {/* End form field */}
+                {/* Campo para la imagen*/}
                 <div className='form__field'>
                     <label htmlFor="image">Selecciona un imagen</label>
                     <input type="file"
@@ -334,23 +346,27 @@ const Form = ({ setPost, post }) => {
                         accept='image/*'
                         onChange={uploadImage} />
                 </div>
-                {/* End form field */}
+                {/* Campo para ele contacto */}
 
                 <div className='form__field'>
                     <label htmlFor="contact" >Contacto</label>
+                    {/* Tipos de errores */}
                     {errors?.contact?.type === 'required' && <p className='form__alert'>El contacto es obligatorio</p>}
+                    {/* Se usará un controller para usar librerías externas en react-form-hook*/}
                     <Controller
                         name='contact'
                         control={control}
-                        rules={{ required: true }}
+                        rules={{ required: true }} //Reglas de validacion
                         defaultValue={post.contact}
-
+                        //Usar render para crear una funcion, que luego guardará el valor que hay en 'PhoneInput' 
                         render={({ field, fieldState: { error } }) => {
                             return (
+                                // Usar la librería para obtener los prefijos de cada pais
                                 <PhoneInput
                                     {...field}
                                     id='contact'
                                     placeholder='Escribe tu número de telefono'
+                                    // funciona para escuchar los cambios
                                     onChange={(e) => {
                                         // Actualiza el valor del formulario
                                         field.onChange(e);
@@ -359,6 +375,7 @@ const Form = ({ setPost, post }) => {
                                     value={field.value}
                                     defaultCountry='AR'
                                     international
+                                    //Sirve para, que el preefijo no sea editable por el usuario
                                     countryCallingCodeEditable={false}
                                     limitMaxLength={true}
                                 />
@@ -366,14 +383,16 @@ const Form = ({ setPost, post }) => {
                         }}
                     />
                 </div>
-                {/* End form field */}
+                {/* Campo para el enlace para inscribirse */}
                 <div className='form__field'>
                     <label htmlFor="registrationLink">Enlace de para inscribirse </label>
+                    {/* Tipos de errores */}
                     {errors?.registrationLink?.type === 'maxLength' && <p className='form__alert'>El enlace No debe tener más de 100 caracteres</p>}
                     {errors?.registrationLink?.type === 'minLength' && <p className='form__alert'>El enlace debe tener al menos 5 caracteres</p>}
                     {errors?.registrationLink?.type === 'pattern' && <p className='form__alert'>Debe ser un enlace valido</p>}
                     <input type="text" id='registrationLink' name='registrationLink' placeholder='Enlace de para inscribirse'
                         defaultValue={post.registrationLink}
+                        // hacer un registro, para guardarlos
                         {...register('registrationLink', {
                             required: false, minLength: 5, maxLength: 100, pattern: {
                                 value: /^(http|https):\/\/[^ "]+$/,
@@ -383,13 +402,16 @@ const Form = ({ setPost, post }) => {
                         })}
                     />
                 </div>
+                {/* Campo mas informacion */}
                 <div className='form__field'>
                     <label htmlFor="url">Mas Informacion </label>
+                    {/* Tipos de errores */}
                     {errors?.url?.type === 'maxLength' && <p className='form__alert'>El enlace No debe tener más de 100 caracteres</p>}
                     {errors?.url?.type === 'minLength' && <p className='form__alert'>El enlace debe tener al menos 5 caracteres</p>}
                     {errors?.url?.type === 'pattern' && <p className='form__alert'>Debe ser un enlace valido</p>}
                     <input type="text" id='url' placeholder='url para mas informacion'
                         defaultValue={post.url}
+                        // hacer un registro, para guardarlos
                         {...register('url', {
                             required: false, minLength: 5, maxLength: 100, pattern: {
                                 value: /^(http|https):\/\/[^ "]+$/,

@@ -47,7 +47,8 @@
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.6.13",
     "sweetalert2-react-content": "^5.0.7",
-    "unorm": "^1.6.0"
+    "unorm": "^1.6.0",
+    "vercel": "^32.5.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

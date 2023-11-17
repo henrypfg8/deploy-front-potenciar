@@ -28,7 +28,7 @@ const UserQuestions = () => {
     : questions;
 
 
-
+  //UseEffect, para hacer el dispatch
   useEffect(() => {
 
     dispatch(getQuestions())
@@ -50,6 +50,7 @@ const UserQuestions = () => {
       </div>
 
       <div className={Styles.question__grid}>
+        {/* mapear los datos filtrados */}
         {filteredResults.length > 0 ? (
           filteredResults.map(question => (
             <UserQuetionCard
@@ -58,6 +59,7 @@ const UserQuestions = () => {
               setRefreshData={setRefreshData} />
           ))
         ) : (
+          // Se mostrará en caso de que no hay resultados con la busqueda
           isSearching &&
           <div className={Styles.div_NoResults}>
             <p className={Styles.title_NoResults}>

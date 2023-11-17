@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import CardDashboard from '../CardDashboard'
 import SearchDashBoard from '../SearchDashBoard';
@@ -8,37 +8,46 @@ import axios from 'axios';
 import { configureHeaders } from '../../../../Redux/auth/configureHeaders ';
 import { Modal } from 'antd';
 
-
-
 const PendingPosts = () => {
+
     const { posts } = useSelector(state => state.posts);
     const dispatch = useDispatch();
     //Estados para hacer busquedas
     const [searchTerm, setSearchTerm] = useState('');
     const [isSearching, setIsSearching] = useState(false);
-
+    //orden por fecha
+    const [sortOrder, setSortOrder] = useState('asc');
     const [refreshData, setRefreshData] = useState(false);
     const [errorNoSeleted, setErrorNoSeleted] = useState(false);
-
 
     //guardar los posts seleccionados para publicar
     const [selectedPosts, setSelectedPosts] = useState([]);
 
+    //Estados para mostrar el modal
     const [isModalOpenPublish, setIsModalOpenPublish] = useState(false);
     const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
     //filtrar los posts que no estan publicados
 
-
-
+    //filtrar los posts pendientes
     const postsPending = posts.filter((post) => { return post.status !== true; });
-    //
+
     // Filtrar el array basado en el término de búsqueda si isSearching es true
-    const filteredResults = isSearching
-        ? postsPending.filter((item) =>
-            // Reemplaza 'item.name' con la propiedad o valor que deseas buscar
-            item.title.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-        : postsPending;
+    const filteredAndSortedResults = useMemo(() => {
+        let results = isSearching
+            ? postsPending.filter(item =>
+                item.title.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            : postsPending;
+
+        // Ordenamiento basado en sortOrder
+        if (sortOrder === 'asc') {
+            results.sort((a, b) => new Date(a.creationDate) - new Date(b.creationDate));
+        } else if (sortOrder === 'desc') {
+            results.sort((a, b) => new Date(b.creationDate) - new Date(a.creationDate));
+        }
+
+        return results;
+    }, [postsPending, isSearching, searchTerm, sortOrder]);
 
     //UseEffect para traer los posts
     useEffect(() => {
@@ -49,6 +58,7 @@ const PendingPosts = () => {
     }, [refreshData])
 
 
+    //Funcion para escuchar el cambio de checkbox
     const handleCheckboxChange = (item) => {
         if (selectedPosts.includes(item)) {
             setSelectedPosts(selectedPosts.filter(i => i !== item));
@@ -56,6 +66,7 @@ const PendingPosts = () => {
             setSelectedPosts([...selectedPosts, item]);
         }
     }
+    //Funcion selecionar los posts
     const handleSelectAllPost = () => {
         if (selectedPosts.length === postsPending.length) {
             setSelectedPosts([]);
@@ -76,8 +87,8 @@ const PendingPosts = () => {
     };
     // Función para abrir el modal
 
-
-    const handlePulishPosts = async () => {//publicar los posts seleccionados
+    //funcion pata publicar los posts seleccionados
+    const handlePulishPosts = async () => {
         if (selectedPosts.length === 0) {
             setErrorNoSeleted(true);
             return;
@@ -94,25 +105,27 @@ const PendingPosts = () => {
             );
 
             const results = await Promise.all(updatePromises); //esperar a que todas las peticiones se completen
-
             // Después de que todas las peticiones se han completado
             setSelectedPosts([]);
             setIsModalOpenPublish(false)
             setRefreshData(false);
-            console.log(results);
+            return results
         } catch (error) {
-            console.log(error.response);
+            return (error.response);
             // Manejar el error (por ejemplo, si alguna de las peticiones falla)
         }
     };
-    //Areas de modales para eliminar
 
+    //Areas de modales para eliminar
     const showModalDelete = () => {
         setIsModalOpenDelete(true);
     }
+
     const handleCloseDelete = () => {
         setIsModalOpenDelete(false);
     };
+
+    //Funcion para borrar multiples posts
     const handleDeletePosts = async () => {
         try {
 
@@ -125,23 +138,41 @@ const PendingPosts = () => {
             setIsModalOpenDelete(false)
             setSelectedPosts([]);
             setRefreshData(false);
-            console.log(results);
         }
         catch (error) {
             console.log(error.response)
         }
-    }
+    };
+
+    const onChangeFilterDate = (e) => {
+        // Actualiza el estado 'sortOrder' con el valor seleccionado
+        setSortOrder(e.target.value);
+    };
+
+
     return (
         <div className={Styles.dashboard}>
+            {/* Si no hay posts de mostrará un mensaje */}
             {postsPending.length === 0 && <p className={Styles.dashboard__post}>No hay publicaciones pendientes</p>}
             {postsPending.length > 0 && (
                 <div>
                     <p className={Styles.dashboard__post}>Hay {postsPending.length} publicaciones pendientes</p>
                     <div className={Styles.button__flexDiv}>
                         <button className={Styles.button__selected} onClick={handleSelectAllPost}>  {selectedPosts.length === postsPending.length ? 'Deseleccionar Todo' : 'Seleccionar Todo'}</button>
+                        {/* Aplicar algunos estilos al select */}
+                        <select style={{
+                            border: 'solid 1px #ddd',
+                            borderRadius: '5px'
+                        }} name="date" id="date" onChange={onChangeFilterDate}>
+
+                            <option value="">Ordenar por fecha</option>
+                            <option value="asc">Más Antiguo</option>
+                            <option value="desc">Más Nuevo</option>
+                        </select>
                     </div>
                 </div>
             )}
+            {/* Componente para la busqueda */}
             <SearchDashBoard
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
@@ -154,22 +185,25 @@ const PendingPosts = () => {
             <div className={Styles.dashboard__div}>
 
                 <div className={Styles.dashboard__divCards}>
-
-                    {filteredResults.length > 0 ? (
-                        filteredResults.map(post => (
+                    {/* mapear los posts filtrados */}
+                    {filteredAndSortedResults.length > 0 ? (
+                        filteredAndSortedResults.map(post => (
                             <CardDashboard
                                 key={post.id}
                                 post={post}
                                 setRefreshData={setRefreshData}
-                                onCheckboxChange={handleCheckboxChange} />
+                                onCheckboxChange={handleCheckboxChange}
+                                isCheked={selectedPosts.includes(post)} />
                         ))
                     ) : (
+                        // Si no hay resultados se mostrará este componente
                         isSearching &&
                         <div className={Styles.div_NoResults}>
                             <p className={Styles.title_NoResults}>No hay resultados</p>
                         </div>
                     )}
                 </div>
+                {/* Si hay un elemento seleccionado en el checkbox, entonces se mostrará dos botones */}
                 {selectedPosts.length > 0 && (
                     <div className={Styles.dashboard__buttons}>
                         <button className={Styles.dashboard__btn}
@@ -181,6 +215,7 @@ const PendingPosts = () => {
                     </div>
                 )}
                 <div>
+                    {/* modal de confirmacion */}
                     <Modal
                         title={`Deseas publicar estos ${selectedPosts.length} posts?`}
                         open={isModalOpenPublish}
@@ -193,6 +228,7 @@ const PendingPosts = () => {
                         }}
 
                     />
+                    {/* modal de confirmacion */}
                     <Modal
                         title={`Deseas eliminar ${selectedPosts.length} posts?`}
                         open={isModalOpenDelete}

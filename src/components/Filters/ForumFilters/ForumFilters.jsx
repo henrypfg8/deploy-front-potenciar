@@ -3,7 +3,7 @@ import Styles from "./forumFilters.module.css";
 import Select from "react-select";
 //
 import { useSelector, useDispatch } from "react-redux";
-import ForumDateFilters from "./Forum_DateFilters/ForumDateFilters";
+import ForumDateFilters from "./ForumDateFilters/ForumDateFilters";
 import { useEffect, useState } from "react";
 //
 import { setQuestionsFilters, getQuestionsFiltered, setSelectedFilterOptions, searchQuestions } from '../../../Redux/actions/questionsActions';
