@@ -28,7 +28,7 @@ const ComentCard = ({ comment, i }) => {
     //Funcion para borrar el comentario, por id
     const handleDeleteCommentById = async id => {
         setRefreshData(true)
-        const { data } = await axios.delete(`http://localhost:19789/comment/delete/${id}`);
+        const { data } = await axios.delete(`https://potenciar-solidario.onrender.com/comment/delete/${id}`);
         setRefreshData(false);
         setIsOpenModal(false)
         return data

@@ -29,7 +29,7 @@ const ResetPassword = () => {
     const verifyToken = async () => {
         try{
             //obtener el resultado por medio de get
-            const { data } = await axios.get('http://localhost:19789/validateotp', {
+            const { data } = await axios.get('https://potenciar-solidario.onrender.com/validateotp', {
                 headers: {
                     Authorization: `Bearer ${token}` //enviar el token por medio de los headers
                 }
@@ -52,7 +52,7 @@ const ResetPassword = () => {
     // Función para actualizar la contraseña
     const handleUpdatePassword = async newPassword => { 
         try{
-            const { data } = await axios.put('http://localhost:19789/resetpassword', { newPassword }, {
+            const { data } = await axios.put('https://potenciar-solidario.onrender.com/resetpassword', { newPassword }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

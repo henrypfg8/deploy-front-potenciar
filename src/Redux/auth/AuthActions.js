@@ -7,7 +7,7 @@ const registerUser = (user) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:19789/register",
+        "https://potenciar-solidario.onrender.com/register",
         user
       );
 
@@ -27,11 +27,14 @@ const registerUser = (user) => {
 const getProfile = (id, token) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`http://localhost:19789/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { data } = await axios.get(
+        `https://potenciar-solidario.onrender.com/users/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       dispatch({ type: types.GET_PROFILE, payload: data });
     } catch (error) {
@@ -45,7 +48,7 @@ const updateProfile = (id, user) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:19789/users/${id}`,
+        `https://potenciar-solidario.onrender.com/users/${id}`,
         { ...user },
         config
       );
@@ -64,7 +67,7 @@ const deleteProfile = (id) => {
       const config = configureHeaders();
 
       const { data } = await axios.delete(
-        `http://localhost:19789/users/${id}`,
+        `https://potenciar-solidario.onrender.com/users/${id}`,
         config
       );
       dispatch({ type: types.DELETE_PROFILE });
@@ -79,10 +82,13 @@ const deleteProfile = (id) => {
 const loginUser = (email, password) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post("http://localhost:19789/login", {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        "https://potenciar-solidario.onrender.com/login",
+        {
+          email,
+          password,
+        }
+      );
       dispatch({ type: types.LOGIN, payload: data });
       return Promise.resolve(data);
     } catch (error) {
@@ -99,9 +105,12 @@ const loginUser = (email, password) => {
 const loginWithGoogleAction = (token) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`http://localhost:19789/authGoogle`, {
-        idToken: token.credential,
-      });
+      const { data } = await axios.post(
+        `https://potenciar-solidario.onrender.com/authGoogle`,
+        {
+          idToken: token.credential,
+        }
+      );
       dispatch({ type: types.LOGIN_WITH_GOOGLE, payload: data });
       return Promise.resolve(data);
     } catch (error) {

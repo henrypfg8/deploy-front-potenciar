@@ -17,7 +17,7 @@ const Email = () => {
     //funcion, para validar si email existe, por medio de una peticion put
     const handleSendEmail = async (email) => {
         try {
-            const { data } = await axios.put('http://localhost:19789/forgotpassword', {email}) // se envia el email
+            const { data } = await axios.put('https://potenciar-solidario.onrender.com/forgotpassword', {email}) // se envia el email
            
             setErrorEmail(false); //cambiar los estados
             setSuccessEmail(true);//cambiar los estados

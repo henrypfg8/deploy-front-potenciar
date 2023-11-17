@@ -22,7 +22,7 @@ const UserPostCard = ({ post, setRefreshData }) => {
   const handleDeleteById = async () => {
     
     setRefreshData(true) //Para cambiar el estado antes de que haga la peticion
-    const { data } = await axios.delete(`http://localhost:19789/posts/${post.id}`, {
+    const { data } = await axios.delete(`https://potenciar-solidario.onrender.com/posts/${post.id}`, {
       headers: {
         //Mandar el token por los headers
         'Authorization': `Bearer ${token}`
