@@ -15,7 +15,7 @@ const About = () => {
               <Avatar
                 size={64}
                 icon={<UserOutlined />}
-                src="../../../public/images/elian.png"
+                src="https://imgs.search.brave.com/KakwnTgvazGJpN0fzAXrgU_bY-nXeplW2TjPfwWeIhM/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiL2Rk/L2VmLzZiZGRlZmE2/YjlhYjM1YjJjMDk4/NDQ2MmVhNjgzMGU1/LmpwZw"
               />
             </Space>
             <div className={styles.iconsContainer}>
@@ -164,7 +164,7 @@ const About = () => {
                 size={64}
                 icon={<UserOutlined />}
                 shape="square"
-                src="../../../public/images/Screenshot_20231117-090958-668.png"
+                src="/images/mariano.png"
               />
             </Space>
             <div className={styles.iconsContainer}>
