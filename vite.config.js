@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/socket.io": {
-        target: "https://potenciar-solidario.onrender.com",
+        target: "https://www.cualquiercosa.com",
         ws: true,
         secure: false,
         changeOrigin: true,
