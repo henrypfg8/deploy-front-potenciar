@@ -17,12 +17,12 @@ const UserPostCard = ({ post, setRefreshData }) => {
   const showModal = () => {
     setOpen(true);
   }
-    ;
+  ;
   //Funcion para eliminar el post del usuario, por su id
   const handleDeleteById = async () => {
-
+    
     setRefreshData(true) //Para cambiar el estado antes de que haga la peticion
-    const { data } = await axios.delete(`https://potenciar-solidario.onrender.com/posts/${post.id}`, {
+    const { data } = await axios.delete(`http://localhost:19789/posts/${post.id}`, {
       headers: {
         //Mandar el token por los headers
         'Authorization': `Bearer ${token}`
@@ -91,14 +91,14 @@ const UserPostCard = ({ post, setRefreshData }) => {
         </div>
 
       </div>
-      {/* Div de botones, para eliminar y actualizar */}
+        {/* Div de botones, para eliminar y actualizar */}
       <div className={Styles.user__btns_flex}>
         <button className={Styles.user__btn_edit} onClick={() => handleIUpdatePost(post.id)}>
-          <img className={Styles.user_edit_icon} src='/images/icons8.png' />
+          <img className={Styles.user_edit_icon} src='/images/icons8.png'/>
         </button>
         <button onClick={showModal} className={Styles.user__btn__delete}>
           {/* icono de borrar */}
-          <i className={`fa fa-trash ${Styles.user__trash_icon}`} aria-hidden="true"></i>
+        <i className={`fa fa-trash ${Styles.user__trash_icon}`} aria-hidden="true"></i>
         </button>
       </div>
     </div>

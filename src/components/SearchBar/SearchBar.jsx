@@ -36,7 +36,7 @@ export default function SearchBar() {
     if (!loading) dispatch(setLoading());
     //se guarda en el estado global el estado local (valor introducido)
     dispatch(setSearchValue(inputValue));
-
+    
     //si la entrada vino vacia, se recuperan todos los posteos sin ninguna busqueda, con los filtros previamente activados
     if (inputValue === "")
       dispatch(getPostsFiltered(filters)).then(dispatch(hideLoading()));
@@ -47,7 +47,7 @@ export default function SearchBar() {
 
       let debounceTimeout = undefined;
       axios.get(
-        `https://potenciar-solidario.onrender.com/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+        `http://localhost:19789/filters?category=${category}&ong=${ong}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
         config
       ).then(({ data }) => {
         debounceTimeout = setTimeout(() => {

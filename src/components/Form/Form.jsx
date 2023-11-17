@@ -67,7 +67,7 @@ const Form = ({ setPost, post }) => {
             if (id) { // Si hay id, obtener la publicación
                 const config = configureHeaders();
                 try {
-                    const { data } = await axios(`https://potenciar-solidario.onrender.com/posts/${id}`, config);
+                    const { data } = await axios(`http://localhost:19789/posts/${id}`, config);
                     //poner los valores en el formulario por medio se setValue
                     setValue('title', data.title)
                     setValue('category', data.category)
@@ -110,7 +110,7 @@ const Form = ({ setPost, post }) => {
 
     //funcion para Actualizar la publicación
     const handleUpdate = async (id, info) => {
-        const { data } = await axios.put(`https://potenciar-solidario.onrender.com/posts/${id}`, { ...info }, {
+        const { data } = await axios.put(`http://localhost:19789/posts/${id}`, { ...info }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -347,7 +347,7 @@ const Form = ({ setPost, post }) => {
                         onChange={uploadImage} />
                 </div>
                 {/* Campo para ele contacto */}
-
+                
                 <div className='form__field'>
                     <label htmlFor="contact" >Contacto</label>
                     {/* Tipos de errores */}

@@ -48,8 +48,8 @@ export default function Posts() {
           ? -1
           : 1
         : a.creationDate > b.creationDate
-          ? 1
-          : -1
+        ? 1
+        : -1
     );
   } else if (orderBy.ordering === "title") {
     orderedPosts.sort((a, b) =>
@@ -64,8 +64,8 @@ export default function Posts() {
           ? -1
           : 1
         : a.startDate > b.startDate
-          ? -1
-          : 1
+        ? -1
+        : 1
     );
   } else if (orderBy.ordering === "popularity") {
     orderedPosts.sort((a, b) =>

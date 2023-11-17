@@ -2,7 +2,7 @@ import { useEffect, useState, } from 'react'
 import Styles from './users.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUsers } from '../../../Redux/actions/usersActions'
-import UserCard from './UserCard'
+import UserCard from './userCard'
 
 
 const Users = () => {

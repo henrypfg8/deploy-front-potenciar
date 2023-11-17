@@ -32,7 +32,7 @@ export default function ForumFilters() {
   });
 
   const selectedFilterOptions = useSelector(state => state.questions.selectedFilterOptions);
-  const [selectedFilterOptionsLOCAL, setSelectedFilterOptionsLOCAL] = useState({ ...selectedFilterOptions });
+  const [selectedFilterOptionsLOCAL, setSelectedFilterOptionsLOCAL] = useState({...selectedFilterOptions});  
   //
   const forumCategoriesOptions = forumCategories.map((category) => ({
     label: category.name,
@@ -44,7 +44,7 @@ export default function ForumFilters() {
     value: 0,
     name: "category",
   });
-
+  
   const userOptions = users.map(({ name, lastname, id }) => ({
     label: `${name} ${lastname}`,
     value: id,
@@ -56,35 +56,35 @@ export default function ForumFilters() {
     name: 'user'
   })
   //
-
+  
   const handleFilters = (e) => {
     const { name, value, label } = e;
-    dispatch(setQuestionsFilters({ ...filters, [name]: value }))
-    dispatch(setSelectedFilterOptions({ ...selectedFilterOptions, [name]: { name, label, value } }))
-    setFiltersLOCAL({ ...filters, [name]: value })
+    dispatch(setQuestionsFilters({...filters, [name]: value}))
+    dispatch(setSelectedFilterOptions({...selectedFilterOptions, [name]: {name, label, value}}))
+    setFiltersLOCAL({...filters, [name]: value})
 
     if (searchValue !== '') {
-      const { category, fromDate, untilDate, user } = { ...filters, [name]: value };
-      axios.get(`https://potenciar-solidario.onrender.com/questionFilters?category=${category}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
-        config)
-        .then(({ data }) => dispatch(searchQuestions(data, searchValue)))
+      const { category, fromDate, untilDate, user } = {...filters, [name]: value};
+      axios.get(`http://localhost:19789/questionFilters?category=${category}&fromDate=${fromDate}&untilDate=${untilDate}&user=${user}`,
+      config)
+      .then(({ data }) => dispatch(searchQuestions(data, searchValue)))
     }
     else {
-      dispatch(getQuestionsFiltered({ ...filters, [name]: value }))
+      dispatch(getQuestionsFiltered({...filters, [name]: value}))
     }
   };
   const handleFromDate = (date) => {
     const fromDate = format(date, 'yyyy-MM-dd');
-
-    dispatch(setQuestionsFilters({ ...filters, fromDate: fromDate }));
-    dispatch(getQuestionsFiltered({ ...filters, fromDate: fromDate }));
-    setFiltersLOCAL({ ...filters, fromDate: fromDate });
+   
+    dispatch(setQuestionsFilters({...filters, fromDate: fromDate}));
+    dispatch(getQuestionsFiltered({...filters, fromDate: fromDate}));
+    setFiltersLOCAL({...filters, fromDate: fromDate});
   };
   const handleUntilDate = (date) => {
     const untilDate = format(date, 'yyyy-MM-dd');
-    dispatch(setQuestionsFilters({ ...filters, untilDate: untilDate }));
-    dispatch(getQuestionsFiltered({ ...filters, untilDate: untilDate }));
-    setFiltersLOCAL({ ...filters, untilDate: untilDate })
+    dispatch(setQuestionsFilters({...filters, untilDate: untilDate}));
+    dispatch(getQuestionsFiltered({...filters, untilDate: untilDate}));
+    setFiltersLOCAL({...filters, untilDate: untilDate})
   };
 
   //
@@ -109,7 +109,7 @@ export default function ForumFilters() {
         value={selectedFilterOptionsLOCAL.category}
       />
 
-      <Select
+      <Select 
         className={Styles.select}
         options={userOptions}
         defaultValue={userOptions[0]}

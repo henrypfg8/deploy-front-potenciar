@@ -50,7 +50,7 @@ export default function Header({ isScrolled }) {
             VOLVER A LA CARTELERA
           </Link>
         )}
-        
+       
       </div>
     </div>
   );

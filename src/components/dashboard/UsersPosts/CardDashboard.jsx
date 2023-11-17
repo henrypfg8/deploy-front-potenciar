@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState} from 'react'
 import proptypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { deletePost } from '../../../Redux/actions/postsActions'
@@ -7,7 +7,7 @@ import Styles from './dashboard.module.css';
 import { configureHeaders } from '../../../Redux/auth/configureHeaders ';
 import axios from 'axios';
 
-const CardDashboard = ({ post, setRefreshData, isCheked, onCheckboxChange }) => {
+const CardDashboard = ({ post, setRefreshData, isCheked, onCheckboxChange}) => {
   //Inicializar los estados para mostrar modales
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChekedModal, setIsChekedModal] = useState(false);
@@ -26,9 +26,9 @@ const CardDashboard = ({ post, setRefreshData, isCheked, onCheckboxChange }) => 
 
     try {
       setRefreshData(true);
-      const { data } = await axios.put(`https://potenciar-solidario.onrender.com/posts/${id}`, //actualizar el post
+      const { data } = await axios.put(`http://localhost:19789/posts/${id}`, //actualizar el post
         { ...post, status: post.status === true ? false : true }, config); //cambiar el estado del post
-
+   
       setIsChekedModal(false);
       setRefreshData(false);
       return data;
@@ -62,7 +62,7 @@ const CardDashboard = ({ post, setRefreshData, isCheked, onCheckboxChange }) => 
       });
   }
 
-
+  
   return (
     <div className={Styles.dashboard__card}>
       <div>
@@ -75,42 +75,42 @@ const CardDashboard = ({ post, setRefreshData, isCheked, onCheckboxChange }) => 
         <p className={Styles.dashboard__p}>{post.description}</p>
       </div>
       <div className={Styles.dashboard__selected}>
-        <input
-          type="checkbox"
-          checked={isCheked}
-          onChange={() => onCheckboxChange(post)}
-        />
+      <input
+        type="checkbox"
+        checked={isCheked}
+        onChange={() => onCheckboxChange(post)}
+      />
         {/* <button className={Styles.dashboard__publish} onClick={handleOpenModalCheked}>{post.status === '1' ? 'sacar' : 'publicar'}</button> */}
         <button
           onClick={showModal}
           className={Styles.dashboard__btn__delete}>
-
+           
           <i className={`fa fa-trash ${Styles.dashboard__trash_icon}`} aria-hidden="true"></i>
         </button>
         <Modal
-          title="Deseas eliminar este post?"
-          open={isModalOpen}
-          onCancel={handleClose}
-          cancelText="Cancelar"
-          okText="Sí,Eliminar"
-          onOk={() => handleDeletePostById(post.id)}
-          cancelButtonProps={{
-            style: { backgroundColor: '#fff', color: '#005692', border: '1px solid #005692' }
-          }}
-          okButtonProps={{ danger: true }}
+            title="Deseas eliminar este post?"
+            open={isModalOpen}
+            onCancel={handleClose}
+            cancelText="Cancelar"
+            okText="Sí,Eliminar"
+            onOk={() => handleDeletePostById(post.id)}
+            cancelButtonProps={{
+              style: { backgroundColor: '#fff', color: '#005692', border: '1px solid #005692' }
+            }}
+            okButtonProps={{ danger: true }}
         />
-        {/* modal de confirmacion para publicar o dejar de publicar*/}
+         {/* modal de confirmacion para publicar o dejar de publicar*/}
         <Modal
-          title={post.status === '1' ? 'Deseas dejar de publicar este post?' : 'Deseas publicar este post?'}
-          open={isChekedModal}
-          onCancel={handleCloseModalCheked}
-          cancelText="Cancelar"
-          okText={post.status === '1' ? 'Sí, dejar de publicar' : 'Sí, publicar'}
-          onOk={() => handleUpdatePostPublish(post.id)}
-          cancelButtonProps={{
-            style: { backgroundColor: '#fff', color: '#005692', border: '1px solid #005692' }
-          }}
-          okButtonProps={{ style: { backgroundColor: '#005692', color: '#fff' } }}
+            title={post.status === '1' ? 'Deseas dejar de publicar este post?' : 'Deseas publicar este post?'}
+            open={isChekedModal}
+            onCancel={handleCloseModalCheked}
+            cancelText="Cancelar"
+            okText={post.status === '1' ? 'Sí, dejar de publicar' : 'Sí, publicar'}
+            onOk={() => handleUpdatePostPublish(post.id)}
+            cancelButtonProps={{
+              style: { backgroundColor: '#fff', color: '#005692', border: '1px solid #005692' }
+            }}
+            okButtonProps={{ style: { backgroundColor: '#005692', color: '#fff' } }}
         />
       </div>
     </div>
@@ -121,7 +121,7 @@ CardDashboard.propTypes = {
   post: proptypes.object.isRequired,
   setRefreshData: proptypes.func.isRequired,
   isCheked: proptypes.bool,
-  onCheckboxChange: proptypes.func
+  onCheckboxChange : proptypes.func
 
 }
 

@@ -110,7 +110,7 @@ function App() {
             <Route path="/foro/:id" element={<QuestionDetail />} />
             <Route path="/foro/edit/:id" element={<QuestionEdit />} />
             <Route path="/about" element={<About />} />
-            
+          
             {/* Otras rutas autenticadas */}
             <Route path="/profile" element={<ProfileView />} />
             <Route path="/profile/posts" element={<UserPostsView />} />
