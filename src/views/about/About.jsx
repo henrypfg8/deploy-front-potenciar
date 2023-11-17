@@ -15,7 +15,7 @@ const About = () => {
               <Avatar
                 size={64}
                 icon={<UserOutlined />}
-                src="https://imgs.search.brave.com/KakwnTgvazGJpN0fzAXrgU_bY-nXeplW2TjPfwWeIhM/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzZiL2Rk/L2VmLzZiZGRlZmE2/YjlhYjM1YjJjMDk4/NDQ2MmVhNjgzMGU1/LmpwZw"
+                src="/images/elian.png"
               />
             </Space>
             <div className={styles.iconsContainer}>
@@ -52,7 +52,7 @@ const About = () => {
               <Avatar
                 size={64}
                 icon={<UserOutlined />}
-                src="../../../public/images/cropped_pfp.png"
+                src="/images/enzo.png"
               />
             </Space>
             <div className={styles.iconsContainer}>
@@ -90,7 +90,7 @@ const About = () => {
                 size={64}
                 icon={<UserOutlined />}
                 shape="square"
-                src="../../../public/images/angeeeeeel.jpeg"
+                src="/images/angel.jpeg"
               />
             </Space>
             <div className={styles.iconsContainer}>
@@ -126,7 +126,7 @@ const About = () => {
                 size={64}
                 icon={<UserOutlined />}
                 shape="square"
-                src="../../../public/images/marcos-senn.jpeg"
+                src="/images/marcos-senn.jpeg"
               />
             </Space>
             <div className={styles.iconsContainer}>
@@ -200,7 +200,7 @@ const About = () => {
                 size={64}
                 icon={<UserOutlined />}
                 shape="square"
-                src="../../../public/images/marcos.jpg"
+                src="/images/marcos.jpg"
               />
             </Space>
             <div className={styles.iconsContainer}>
@@ -236,7 +236,7 @@ const About = () => {
                 size={64}
                 icon={<UserOutlined />}
                 shape="square"
-                src="../../../public/images/ramirooo.png"
+                src="/images/ramirooo.png"
               />
             </Space>
             <div className={styles.iconsContainer}>
@@ -268,7 +268,7 @@ const About = () => {
 
           <div className={styles.MemberInfo}>
             <Space wrap size={16}>
-              <Avatar size={64} icon={<UserOutlined />} shape="square" src='../../../public/images/byron.jpeg'/>
+              <Avatar size={64} icon={<UserOutlined />} shape="square" src='/images/byron.jpeg'/>
             </Space>
             <div className={styles.iconsContainer}>
               <NavLink
