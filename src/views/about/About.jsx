@@ -37,12 +37,6 @@ const About = () => {
                   alt="Git hub"
                 />
               </NavLink>
-             
-              <a href="mailto:elianbenjamin30@gmail.com"><img
-                  className={styles.img}
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png"
-                  alt="Gmail icon"
-                ></img></a>
          
             </div>
           </div>
@@ -74,12 +68,6 @@ const About = () => {
                   alt="Git hub"
                 />
               </NavLink>
-
-              <a href="mailto:enzosamojedny@gmail.com"><img
-                  className={styles.img}
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png"
-                  alt="Gmail icon"
-                ></img></a>
          
             </div>
           </div>
@@ -148,11 +136,6 @@ const About = () => {
                   alt="Git hub"
                 />
               </NavLink>
-              <a href="mailto:marcossenn@gmail.com"><img
-                  className={styles.img}
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png"
-                  alt="Gmail icon"
-                ></img></a>
             </div>
           </div>
         </div>
@@ -222,11 +205,6 @@ const About = () => {
                   alt="Git hub"
                 />
               </NavLink>
-              <a href="mailto:marcosdani4125@gmail.com"><img
-                  className={styles.img}
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png"
-                  alt="Gmail icon"
-                ></img></a>
             </div>
           </div>
 
@@ -282,7 +260,6 @@ const About = () => {
                   alt="Linkedin"
                 />
               </NavLink>
-
               <NavLink
                 to={"https://github.com/byron-fran"}
                 target="_blank"
@@ -294,12 +271,6 @@ const About = () => {
                   alt="Git hub"
                 />
               </NavLink>
-
-              <a href="mailto:byrontito3@gmail.com"><img
-                  className={styles.img}
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png"
-                  alt="Gmail icon"
-                ></img></a>
             </div>
           </div>
         </div>
