@@ -1,21 +1,19 @@
-import { useEffect, useState, } from 'react'
-import Styles from './users.module.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { getUsers } from '../../../Redux/actions/usersActions'
-import UserCard from './userCard'
-
+import { useEffect, useState } from "react";
+import Styles from "./users.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../../Redux/actions/usersActions";
+import UserCard from "./UserCard";
 
 const Users = () => {
-  const dispatch = useDispatch()
-  const { users } = useSelector(state => state.users);
+  const dispatch = useDispatch();
+  const { users } = useSelector((state) => state.users);
   //Inicializar los estados de busqueda
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
-    dispatch(getUsers())
+    dispatch(getUsers());
   }, []);
-
 
   //Funcion para buscar que reciba del input
   const handleSearch = (e) => {
@@ -26,12 +24,13 @@ const Users = () => {
 
   // Filtrar el array basado en el término de búsqueda si isSearching es true
   const filteredResults = isSearching
-    ? users.filter((item) =>
-      // Reemplaza 'item.name' con la propiedad o valor que deseas buscar
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) || item.lastname.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    ? users.filter(
+        (item) =>
+          // Reemplaza 'item.name' con la propiedad o valor que deseas buscar
+          item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.lastname.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     : users;
-
 
   return (
     <div className={Styles.users__container}>
@@ -41,7 +40,7 @@ const Users = () => {
           type="text"
           value={searchTerm}
           onChange={handleSearch}
-          placeholder='buscar por nombre o apellido'
+          placeholder="buscar por nombre o apellido"
         />
       </div>
 
@@ -62,31 +61,32 @@ const Users = () => {
             </tr>
           </thead>
           {/* Filtrar los datos encontrados */}
-          {filteredResults.length > 0 ? (
-            filteredResults.map(user => (
-              <UserCard key={user.id} user={user} />
-            ))
-          ) : (
-            // Se mostrará en caso de que no hay resultados, en la busqueda
-            isSearching &&
-            <tbody className={Styles.div_NoResults}>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td className={Styles.title_NoResults}>No hay resultados</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          )}
+          {filteredResults.length > 0
+            ? filteredResults.map((user) => (
+                <UserCard key={user.id} user={user} />
+              ))
+            : // Se mostrará en caso de que no hay resultados, en la busqueda
+              isSearching && (
+                <tbody className={Styles.div_NoResults}>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td className={Styles.title_NoResults}>
+                      No hay resultados
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              )}
         </table>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Users
+export default Users;
