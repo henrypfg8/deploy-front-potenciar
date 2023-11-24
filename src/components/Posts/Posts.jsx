@@ -4,7 +4,7 @@ import Post from "../Post/Post";
 //
 import { useSelector } from "react-redux";
 //
-import NoPostsIcon from "../../assets/NoPostsIcon";
+import NoPostsIcon from "../../assets/noPostsIcon";
 import OvalLoader from "../../assets/OvalLoader";
 
 export default function Posts() {
