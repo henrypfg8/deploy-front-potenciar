@@ -102,7 +102,7 @@ const CardDashboard = ({
             )}
             <div>
               <p className={Styles.dashboard__name}>
-                Ususario:
+                Usuario:
                 <span>{post.User?.name}</span>
               </p>
             </div>
